@@ -1,0 +1,64 @@
+version: '2'
+
+services:
+  zoo1:
+    image: zookeeper:3.4.9
+    restart: always
+    ports:
+      - "2181:2181"
+    environment:
+        ZOO_MY_ID: 1
+        ZOO_PORT: 2181
+        ZOO_SERVERS: server.1=zoo1:2888:3888
+
+  kafka1:
+    image: wurstmeister/kafka:0.10.1.0
+    ports:
+      - "9092:9092"
+    environment:
+      # add the entry "127.0.0.1    kafka1" to your /etc/hosts file
+      KAFKA_ADVERTISED_HOST_NAME: "kafka1"
+      KAFKA_ADVERTISED_PORT: "9092"
+      KAFKA_PORT: "9092"
+      KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
+    depends_on:
+      - zoo1
+
+  kafka-schema-registry:
+    image: confluentinc/cp-schema-registry
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zoo1:2181
+      SCHEMA_REGISTRY_HOST_NAME: kafka-schema-registry
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+    depends_on:
+      - zoo1
+      - kafka1
+
+  kafka-rest-proxy:
+    image: confluentinc/cp-kafka-rest:3.1.1
+    ports:
+      - "8082:8082"
+    environment:
+      KAFKA_REST_ZOOKEEPER_CONNECT: zoo1:2181
+      KAFKA_REST_LISTENERS: http://0.0.0.0:8082/
+      KAFKA_REST_SCHEMA_REGISTRY_URL: http://kafka-schema-registry:8081/
+      KAFKA_REST_HOST_NAME: kafka-rest-proxy
+    depends_on:
+      - zoo1
+      - kafka1
+      - kafka-schema-registry
+
+  kafka-topics-ui:
+    image: landoop/kafka-topics-ui
+    ports:
+      - "8000:8000"
+    environment:
+      KAFKA_REST_PROXY_URL: "http://kafka-rest-proxy:8082/"
+      PROXY: "true"
+    depends_on:
+      - zoo1
+      - kafka1
+      - kafka-schema-registry
+      - kafka-rest-proxy

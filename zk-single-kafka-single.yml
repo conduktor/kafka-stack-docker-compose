@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+  zoo1:
+    image: zookeeper:3.4.9
+    restart: always
+    ports:
+      - "2181:2181"
+    environment:
+        ZOO_MY_ID: 1
+        ZOO_PORT: 2181
+        ZOO_SERVERS: server.1=zoo1:2888:3888
+
+  kafka1:
+    image: wurstmeister/kafka:0.10.1.0
+    ports:
+      - "9092:9092"
+    environment:
+      # add the entry "127.0.0.1    kafka1" to your /etc/hosts file
+      KAFKA_ADVERTISED_HOST_NAME: "kafka1"
+      KAFKA_ADVERTISED_PORT: "9092"
+      KAFKA_PORT: "9092"
+      KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
+    depends_on:
+      - zoo1
