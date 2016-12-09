@@ -11,28 +11,27 @@ services:
         ZOO_PORT: 2181
         ZOO_SERVERS: server.1=zoo1:2888:3888
 
+
   kafka1:
-    image: wurstmeister/kafka:0.10.1.0
+    image: confluentinc/cp-kafka:3.1.1
     ports:
       - "9092:9092"
     environment:
       # add the entry "127.0.0.1    kafka1" to your /etc/hosts file
-      KAFKA_ADVERTISED_HOST_NAME: "kafka1"
-      KAFKA_ADVERTISED_PORT: "9092"
-      KAFKA_PORT: "9092"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka1:9092"
       KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
+      KAFKA_BROKER_ID: 1
     depends_on:
       - zoo1
 
   kafka2:
-    image: wurstmeister/kafka:0.10.1.0
+    image: confluentinc/cp-kafka:3.1.1
     ports:
       - "9093:9093"
     environment:
-      # add the entry "127.0.0.1    kafka2" to your /etc/hosts file
-      KAFKA_ADVERTISED_HOST_NAME: "kafka2"
-      KAFKA_ADVERTISED_PORT: "9093"
-      KAFKA_PORT: "9093"
+      # add the entry "127.0.0.1    kafka1" to your /etc/hosts file
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka2:9093"
       KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
+      KAFKA_BROKER_ID: 2
     depends_on:
       - zoo1
