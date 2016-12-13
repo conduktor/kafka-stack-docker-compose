@@ -41,6 +41,7 @@ services:
       KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka1:9092"
       KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
       KAFKA_BROKER_ID: 1
+      # KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
     depends_on:
       - zoo1
       - zoo2
@@ -55,6 +56,7 @@ services:
       KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka2:9093"
       KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
       KAFKA_BROKER_ID: 2
+      # KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
     depends_on:
       - zoo1
       - zoo2

@@ -4,8 +4,14 @@ This replicates as well as possible real deployment configurations, where you ha
 
 ## Stack version
 
- - Zookeeper version: 3.4.9
- - Kafka version: 0.10.1.0
+  - Zookeeper version: 3.4.9
+  - Kafka version: 0.10.1.0 (Confluent 3.1.1)
+  - Kafka Schema Registry: Confluent 3.1.1
+  - Kafka Schema Registry UI: 0.7.1 (no guarantee as docker images aren't tagged)
+  - Kafka Rest Proxy: Confluent 3.1.1
+  - Kafka Topics UI: 0.7.3 (no guarantee as docker images aren't tagged)
+  - Kafka Connect: Confluent 3.1.1
+  - Kafka Connect UI: unversioned
 
 ## Single Zookeeper / Single Kafka
 
@@ -88,8 +94,11 @@ docker-compose -f zk-multiple-kafka-multiple.yml down
  - Single Zookeeper: `localhost:2181`
  - Single Kafka: `localhost:9092`
  - Kafka Schema Registry: `localhost:8081`
+ - Kafka Schema Registry UI: `localhost:8001`
  - Kafka Rest Proxy: `localhost:8082`
  - Kafka Topics UI: `localhost:8000`
+ - Kafka Connect: `localhost:8083`
+ - Kafka Connect UI: `localhost:8003`
 
 
  Make sure to add to your `/etc/hosts` file
@@ -102,3 +111,10 @@ docker-compose -f zk-multiple-kafka-multiple.yml down
  docker-compose -f full-stack.yml up
  docker-compose -f full-stack.yml down
  ```
+
+# FAQ
+
+## Kafka
+
+Q: Kafka's log is too verbose, how can I reduce it?
+A: Add the following line to your docker-compose environment variables: `KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"`. Full logging control can be accessed here: https://github.com/confluentinc/cp-docker-images/blob/master/debian/kafka/include/etc/confluent/docker/log4j.properties.template
