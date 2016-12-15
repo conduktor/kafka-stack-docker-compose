@@ -4,6 +4,7 @@ services:
   zoo1:
     image: zookeeper:3.4.9
     restart: always
+    hostname: zoo1
     ports:
       - "2181:2181"
     environment:
@@ -12,6 +13,7 @@ services:
         ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
   zoo2:
     image: zookeeper:3.4.9
+    hostname: zoo2
     restart: always
     ports:
       - "2182:2182"
@@ -22,6 +24,7 @@ services:
 
   zoo3:
     image: zookeeper:3.4.9
+    hostname: zoo3
     restart: always
     ports:
       - "2183:2183"
@@ -33,6 +36,7 @@ services:
 
   kafka1:
     image: confluentinc/cp-kafka:3.1.1
+    hostname: kafka1
     ports:
       - "9092:9092"
     environment:

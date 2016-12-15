@@ -4,6 +4,7 @@ services:
   zoo1:
     image: zookeeper:3.4.9
     restart: always
+    hostname: zoo1
     ports:
       - "2181:2181"
     environment:
@@ -14,6 +15,7 @@ services:
 
   kafka1:
     image: confluentinc/cp-kafka:3.1.1
+    hostname: kafka1
     ports:
       - "9092:9092"
     environment:
@@ -27,6 +29,7 @@ services:
 
   kafka-schema-registry:
     image: confluentinc/cp-schema-registry
+    hostname: kafka-schema-registry
     ports:
       - "8081:8081"
     environment:
@@ -49,6 +52,7 @@ services:
 
   kafka-rest-proxy:
     image: confluentinc/cp-kafka-rest:3.1.1
+    hostmame: kafka-rest-proxy
     ports:
       - "8082:8082"
     environment:
@@ -76,6 +80,7 @@ services:
 
   kafka-connect:
     image: confluentinc/cp-kafka-connect:3.1.1
+    hostname: kafka-connect
     ports:
       - "8083:8083"
     environment:
