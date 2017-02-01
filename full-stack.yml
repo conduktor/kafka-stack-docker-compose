@@ -14,7 +14,7 @@ services:
 
 
   kafka1:
-    image: confluentinc/cp-kafka:3.1.1
+    image: confluentinc/cp-kafka:3.1.2
     hostname: kafka1
     ports:
       - "9092:9092"
@@ -51,7 +51,7 @@ services:
       - kafka-schema-registry
 
   kafka-rest-proxy:
-    image: confluentinc/cp-kafka-rest:3.1.1
+    image: confluentinc/cp-kafka-rest:3.1.2
     hostname: kafka-rest-proxy
     ports:
       - "8082:8082"
@@ -79,7 +79,7 @@ services:
       - kafka-rest-proxy
 
   kafka-connect:
-    image: confluentinc/cp-kafka-connect:3.1.1
+    image: confluentinc/cp-kafka-connect:3.1.2
     hostname: kafka-connect
     ports:
       - "8083:8083"
