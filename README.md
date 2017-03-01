@@ -13,17 +13,49 @@ This replicates as well as possible real deployment configurations, where you ha
   - Kafka Connect: Confluent 3.1.2
   - Kafka Connect UI: 0.8.2
 
+# Requirements
+
+## /etc/hosts changes
+
+If you are using Docker for Mac >= 1.12, Docker for Linux, or Docker for Windows 10, then please add the following lines to `/etc/hosts`:
+```
+127.0.0.1     kafka1
+127.0.0.1     kafka2
+127.0.0.1     kafka3
+127.0.0.1     zoo1
+127.0.0.1     zoo2
+127.0.0.1     zoo3
+127.0.0.1     kafka-schema-registry
+127.0.0.1     kafka-schema-registry-ui
+127.0.0.1     kafka-rest-proxy
+127.0.0.1     kafka-topics-ui
+127.0.0.1     kafka-connect-ui
+```
+
+If you are using Docker for Mac <= 1.11, or Docker Toolbox for Windows
+(your docker machine IP is usually `192.168.99.100`)
+Please add the following lines to `/etc/hosts`:
+```
+192.168.99.100    kafka1
+192.168.99.100    kafka2
+192.168.99.100    kafka3
+192.168.99.100    zoo1
+192.168.99.100    zoo2
+192.168.99.100    zoo3
+192.168.99.100    kafka-schema-registry
+192.168.99.100    kafka-schema-registry-ui
+192.168.99.100    kafka-rest-proxy
+192.168.99.100    kafka-topics-ui
+192.168.99.100    kafka-connect-ui
+```
+
 ## Single Zookeeper / Single Kafka
 
 This configuration fits most development requirements.
 
- - Zookeeper will be available at `localhost:2181`
- - Kafka will be available at `localhost:9092`
+ - Zookeeper will be available at `zoo1:2181`
+ - Kafka will be available at `kafka1:9092`
 
-Make sure to add to your `/etc/hosts` file
-```
-127.0.0.1     kafka1
-```
 
 Run with:
 ```
@@ -35,14 +67,9 @@ docker-compose -f zk-single-kafka-single.yml down
 
 If you want to have two brokers and experiment with replication / fault-tolerance.
 
-- Zookeeper will be available at `localhost:2181`
-- Kafka will be available at `localhost:9092,localhost:9093`
+- Zookeeper will be available at `zoo1:2181`
+- Kafka will be available at `kafka1:9092,kafka2:9093,kafka3:9094`
 
-Make sure to add to your `/etc/hosts` file
-```
-127.0.0.1     kafka1
-127.0.0.1     kafka2
-```
 
 Run with:
 ```
@@ -54,13 +81,8 @@ docker-compose -f zk-single-kafka-multiple.yml down
 
 If you want to have three zookeeper and experiment with zookeeper fault-tolerance.
 
-- Zookeeper will be available at `localhost:2181,localhost:2182,localhost:2183`
-- Kafka will be available at `localhost:9092`
-
-Make sure to add to your `/etc/hosts` file
-```
-127.0.0.1     kafka1
-```
+- Zookeeper will be available at `zoo1:2181,zoo2:2182,zoo3:2183`
+- Kafka will be available at `kafka1:9092`
 
 Run with:
 ```
@@ -73,14 +95,8 @@ docker-compose -f zk-multiple-kafka-single.yml down
 
 If you want to have three zookeeper and two kafka brokers to experiment with production setup.
 
-- Zookeeper will be available at `localhost:2181,localhost:2182,localhost:2183`
-- Kafka will be available at `localhost:9092,localhost:9093`
-
-Make sure to add to your `/etc/hosts` file
-```
-127.0.0.1     kafka1
-127.0.0.1     kafka2
-```
+- Zookeeper will be available at `zoo1:2181,zoo2:2182,zoo3:2183`
+- Kafka will be available at `kafka1:9092,kafka2:9093,kafka3:9094`
 
 Run with:
 ```
@@ -91,20 +107,15 @@ docker-compose -f zk-multiple-kafka-multiple.yml down
 
 ## Full stack
 
- - Single Zookeeper: `localhost:2181`
- - Single Kafka: `localhost:9092`
- - Kafka Schema Registry: `localhost:8081`
- - Kafka Schema Registry UI: `localhost:8001`
- - Kafka Rest Proxy: `localhost:8082`
- - Kafka Topics UI: `localhost:8000`
- - Kafka Connect: `localhost:8083`
- - Kafka Connect UI: `localhost:8003`
+ - Single Zookeeper: `zoo1:2181`
+ - Single Kafka: `kafka1:9092`
+ - Kafka Schema Registry: `kafka-schema-registry:8081`
+ - Kafka Schema Registry UI: `kafka-schema-registry-ui:8001`
+ - Kafka Rest Proxy: `kafka-rest-proxy:8082`
+ - Kafka Topics UI: `kafka-topics-ui:8000`
+ - Kafka Connect: `kafka-connect:8083`
+ - Kafka Connect UI: `kafka-connect-ui:8003`
 
-
- Make sure to add to your `/etc/hosts` file
- ```
- 127.0.0.1     kafka1
- ```
 
  Run with:
  ```
