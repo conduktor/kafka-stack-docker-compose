@@ -1,0 +1,4 @@
+data/*
+datalog/*
+!data
+!datalog
