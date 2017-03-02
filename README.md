@@ -15,7 +15,9 @@ This replicates as well as possible real deployment configurations, where you ha
 
 # Requirements
 
-## /etc/hosts changes
+## Host File changes
+
+See https://support.rackspace.com/how-to/modify-your-hosts-file/ to detailed instructions on how to modify your host files. 
 
 If you are using Docker for Mac >= 1.12, Docker for Linux, or Docker for Windows 10, then please add the following lines to `/etc/hosts` or `C:\Windows\System32\Drivers\etc\hosts`:
 ```
@@ -48,8 +50,6 @@ Please add the following lines to `/etc/hosts` or `C:\Windows\System32\Drivers\e
 192.168.99.100    kafka-topics-ui
 192.168.99.100    kafka-connect-ui
 ```
-
-See https://support.rackspace.com/how-to/modify-your-hosts-file/ to detailed instructions on how to modify your host files. 
 
 ## Single Zookeeper / Single Kafka
 
