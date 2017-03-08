@@ -5,12 +5,12 @@ This replicates as well as possible real deployment configurations, where you ha
 ## Stack version
 
   - Zookeeper version: 3.4.9
-  - Kafka version: 0.10.1.1 (Confluent 3.1.2)
-  - Kafka Schema Registry: Confluent 3.1.2
+  - Kafka version: 0.10.1.1 (Confluent 3.2.0)
+  - Kafka Schema Registry: Confluent 3.2.0
   - Kafka Schema Registry UI: 0.9.0
-  - Kafka Rest Proxy: Confluent 3.1.2
+  - Kafka Rest Proxy: Confluent 3.2.0
   - Kafka Topics UI: 0.8.2
-  - Kafka Connect: Confluent 3.1.2
+  - Kafka Connect: Confluent 3.2.0
   - Kafka Connect UI: 0.8.2
 
 # Requirements
@@ -131,4 +131,4 @@ Q: Kafka's log is too verbose, how can I reduce it?
 A: Add the following line to your docker-compose environment variables: `KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"`. Full logging control can be accessed here: https://github.com/confluentinc/cp-docker-images/blob/master/debian/kafka/include/etc/confluent/docker/log4j.properties.template
 
 Q: How do I delete data to start fresh?
-A: Your data is persisted from within the docker compose folder, so if you want for example to reset the data in the full-stack docker compose, first do a `docker-compose -f full-stack.yml down`, then remove the directory `full-stack`, for example by doing `rm -r -f full-stack`. 
+A: Your data is persisted from within the docker compose folder, so if you want for example to reset the data in the full-stack docker compose, first do a `docker-compose -f full-stack.yml down`, then remove the directory `full-stack`, for example by doing `rm -r -f full-stack`.
