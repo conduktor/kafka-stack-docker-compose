@@ -15,9 +15,11 @@ This replicates as well as possible real deployment configurations, where you ha
 
 # Requirements
 
-## /etc/hosts changes
+## Host File changes
 
-If you are using Docker for Mac >= 1.12, Docker for Linux, or Docker for Windows 10, then please add the following lines to `/etc/hosts`:
+See https://support.rackspace.com/how-to/modify-your-hosts-file/ to detailed instructions on how to modify your host files. 
+
+If you are using Docker for Mac >= 1.12, Docker for Linux, or Docker for Windows 10, then please add the following lines to `/etc/hosts` or `C:\Windows\System32\Drivers\etc\hosts`:
 ```
 127.0.0.1     kafka1
 127.0.0.1     kafka2
@@ -34,7 +36,7 @@ If you are using Docker for Mac >= 1.12, Docker for Linux, or Docker for Windows
 
 If you are using Docker for Mac <= 1.11, or Docker Toolbox for Windows
 (your docker machine IP is usually `192.168.99.100`)
-Please add the following lines to `/etc/hosts`:
+Please add the following lines to `/etc/hosts` or `C:\Windows\System32\Drivers\etc\hosts`:
 ```
 192.168.99.100    kafka1
 192.168.99.100    kafka2
