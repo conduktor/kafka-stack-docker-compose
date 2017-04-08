@@ -17,7 +17,7 @@ This replicates as well as possible real deployment configurations, where you ha
 
 ## Host File changes
 
-See https://support.rackspace.com/how-to/modify-your-hosts-file/ to detailed instructions on how to modify your host files. 
+See https://support.rackspace.com/how-to/modify-your-hosts-file/ to detailed instructions on how to modify your host files.
 
 If you are using Docker for Mac >= 1.12, Docker for Linux, or Docker for Windows 10, then please add the following lines to `/etc/hosts` or `C:\Windows\System32\Drivers\etc\hosts`:
 ```
