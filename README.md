@@ -5,7 +5,7 @@ This replicates as well as possible real deployment configurations, where you ha
 ## Stack version
 
   - Zookeeper version: 3.4.9
-  - Kafka version: 0.10.1.1 (Confluent 3.2.0)
+  - Kafka version: 0.10.2.0 (Confluent 3.2.0)
   - Kafka Schema Registry: Confluent 3.2.0
   - Kafka Schema Registry UI: 0.9.0
   - Kafka Rest Proxy: Confluent 3.2.0
