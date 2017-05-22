@@ -1,0 +1,114 @@
+version: '2'
+
+services:
+  zoo1:
+    image: zookeeper:3.4.9
+    restart: always
+    hostname: zoo1
+    ports:
+      - "2181:2181"
+    environment:
+        ZOO_MY_ID: 1
+        ZOO_PORT: 2181
+        ZOO_SERVERS: server.1=zoo1:2888:3888
+
+  kafka1:
+    image: confluentinc/cp-kafka:3.1.1
+    hostname: kafka1
+    ports:
+      - "9092:9092"
+    environment:
+      # add the entry "127.0.0.1    kafka1" to your /etc/hosts file
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka1:9092"
+      KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
+      KAFKA_BROKER_ID: 1
+      # KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+    depends_on:
+      - zoo1
+
+  kafka-schema-registry:
+    image: confluentinc/cp-schema-registry
+    hostname: kafka-schema-registry
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zoo1:2181
+      SCHEMA_REGISTRY_HOST_NAME: kafka-schema-registry
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+    depends_on:
+      - zoo1
+      - kafka1
+
+  schema-registry-ui:
+    image: landoop/schema-registry-ui
+    ports:
+      - "8001:8000"
+    environment:
+      SCHEMAREGISTRY_URL: http://kafka-schema-registry:8081/
+      PROXY: "true"
+    depends_on:
+      - kafka-schema-registry
+
+  kafka-rest-proxy:
+    image: confluentinc/cp-kafka-rest:3.1.1
+    hostname: kafka-rest-proxy
+    ports:
+      - "8082:8082"
+    environment:
+      KAFKA_REST_ZOOKEEPER_CONNECT: zoo1:2181
+      KAFKA_REST_LISTENERS: http://0.0.0.0:8082/
+      KAFKA_REST_SCHEMA_REGISTRY_URL: http://kafka-schema-registry:8081/
+      KAFKA_REST_HOST_NAME: kafka-rest-proxy
+    depends_on:
+      - zoo1
+      - kafka1
+      - kafka-schema-registry
+
+  kafka-topics-ui:
+    image: landoop/kafka-topics-ui
+    ports:
+      - "8000:8000"
+    environment:
+      KAFKA_REST_PROXY_URL: "http://kafka-rest-proxy:8082/"
+      PROXY: "true"
+    depends_on:
+      - zoo1
+      - kafka1
+      - kafka-schema-registry
+      - kafka-rest-proxy
+
+#  kafka-connect:
+#    image: confluentinc/cp-kafka-connect:3.1.1
+#    hostname: kafka-connect
+#    ports:
+#      - "8083:8083"
+#    environment:
+#      CONNECT_BOOTSTRAP_SERVERS: "kafka1:9092"
+#      CONNECT_REST_PORT: 8083
+#      CONNECT_GROUP_ID: compose-connect-group
+#      CONNECT_CONFIG_STORAGE_TOPIC: docker-connect-configs
+#      CONNECT_OFFSET_STORAGE_TOPIC: docker-connect-offsets
+#      CONNECT_STATUS_STORAGE_TOPIC: docker-connect-status
+#      CONNECT_KEY_CONVERTER: io.confluent.connect.avro.AvroConverter
+#      CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL: 'http://kafka-schema-registry:8081'
+#      CONNECT_VALUE_CONVERTER: io.confluent.connect.avro.AvroConverter
+#      CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: 'http://kafka-schema-registry:8081'
+#      CONNECT_INTERNAL_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
+#      CONNECT_INTERNAL_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
+#      CONNECT_REST_ADVERTISED_HOST_NAME: "kafka-connect"
+#      CONNECT_LOG4J_ROOT_LOGLEVEL: "INFO"
+#    depends_on:
+#      - zoo1
+#      - kafka1
+#      - kafka-schema-registry
+#      - kafka-rest-proxy
+#
+#  kafka-connect-ui:
+#    image: landoop/kafka-connect-ui
+#    ports:
+#      - "8003:8000"
+#    environment:
+#      CONNECT_URL: "http://kafka-connect:8083/"
+#      PROXY: "true"
+#    depends_on:
+#      - kafka-connect
