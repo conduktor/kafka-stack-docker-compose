@@ -17,7 +17,7 @@ services:
 
 
   kafka1:
-    image: confluentinc/cp-kafka:3.2.1
+    image: confluentinc/cp-kafka:3.3.0
     hostname: kafka1
     ports:
       - "9092:9092"
@@ -27,13 +27,14 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
       KAFKA_BROKER_ID: 1
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     volumes:
       - ./full-stack/kafka1/data:/var/lib/kafka/data
     depends_on:
       - zoo1
 
   kafka-schema-registry:
-    image: confluentinc/cp-schema-registry:3.2.1
+    image: confluentinc/cp-schema-registry:3.3.0
     hostname: kafka-schema-registry
     ports:
       - "8081:8081"
@@ -57,7 +58,7 @@ services:
       - kafka-schema-registry
 
   kafka-rest-proxy:
-    image: confluentinc/cp-kafka-rest:3.2.1
+    image: confluentinc/cp-kafka-rest:3.3.0
     hostname: kafka-rest-proxy
     ports:
       - "8082:8082"
@@ -66,13 +67,14 @@ services:
       KAFKA_REST_LISTENERS: http://0.0.0.0:8082/
       KAFKA_REST_SCHEMA_REGISTRY_URL: http://kafka-schema-registry:8081/
       KAFKA_REST_HOST_NAME: kafka-rest-proxy
+      KAFKA_REST_BOOTSTRAP_SERVERS: kafka1:9092
     depends_on:
       - zoo1
       - kafka1
       - kafka-schema-registry
 
   kafka-topics-ui:
-    image: landoop/kafka-topics-ui:0.9.1
+    image: landoop/kafka-topics-ui:0.9.2
     hostname: kafka-topics-ui
     ports:
       - "8000:8000"
@@ -86,7 +88,7 @@ services:
       - kafka-rest-proxy
 
   kafka-connect:
-    image: confluentinc/cp-kafka-connect:3.2.1
+    image: confluentinc/cp-kafka-connect:3.3.0
     hostname: kafka-connect
     ports:
       - "8083:8083"
@@ -105,6 +107,10 @@ services:
       CONNECT_INTERNAL_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
       CONNECT_REST_ADVERTISED_HOST_NAME: "kafka-connect"
       CONNECT_LOG4J_ROOT_LOGLEVEL: "INFO"
+      CONNECT_LOG4J_LOGGERS: "org.apache.kafka.connect.runtime.rest=WARN,org.reflections=ERROR"
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
     depends_on:
       - zoo1
       - kafka1
@@ -121,3 +127,24 @@ services:
       PROXY: "true"
     depends_on:
       - kafka-connect
+
+  zoonavigator-web:
+    image: elkozmon/zoonavigator-web:0.2.1
+    ports:
+     - "8004:8000"
+    environment:
+      API_HOST: "zoonavigator-api"
+      API_PORT: 9000
+    links:
+     - zoonavigator-api
+    depends_on:
+     - zoonavigator-api
+    restart: unless-stopped
+
+  zoonavigator-api:
+    image: elkozmon/zoonavigator-api:0.2.1
+    environment:
+      SERVER_HTTP_PORT: 9000
+    restart: unless-stopped
+    depends_on:
+      - zoo1
