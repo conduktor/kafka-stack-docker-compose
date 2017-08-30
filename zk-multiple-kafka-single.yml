@@ -42,7 +42,7 @@ services:
 
 
   kafka1:
-    image: confluentinc/cp-kafka:3.2.1
+    image: confluentinc/cp-kafka:3.3.0
     hostname: kafka1
     ports:
       - "9092:9092"
@@ -52,6 +52,7 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
       KAFKA_BROKER_ID: 1
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     volumes:
       - ./zk-multiple-kafka-single/kafka1/data:/var/lib/kafka/data
     depends_on:

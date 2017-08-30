@@ -5,13 +5,14 @@ This replicates as well as possible real deployment configurations, where you ha
 ## Stack version
 
   - Zookeeper version: 3.4.9
-  - Kafka version: 0.10.2.1 (Confluent 3.2.1)
-  - Kafka Schema Registry: Confluent 3.2.1
+  - Kafka version: 0.11.0.0 (Confluent 3.3.0)
+  - Kafka Schema Registry: Confluent 3.3.0
   - Kafka Schema Registry UI: 0.9.1
-  - Kafka Rest Proxy: Confluent 3.2.1
-  - Kafka Topics UI: 0.9.1
-  - Kafka Connect: Confluent 3.2.1
+  - Kafka Rest Proxy: Confluent 3.3.0
+  - Kafka Topics UI: 0.9.2
+  - Kafka Connect: Confluent 3.3.0
   - Kafka Connect UI: 0.9.2
+  - Zoonavigator: 0.2.1
 
 # Requirements
 
@@ -32,6 +33,8 @@ If you are using Docker for Mac >= 1.12, Docker for Linux, or Docker for Windows
 127.0.0.1     kafka-rest-proxy
 127.0.0.1     kafka-topics-ui
 127.0.0.1     kafka-connect-ui
+127.0.0.1     zoonavigator-web
+127.0.0.1     zoonavigator-api
 ```
 
 If you are using Docker for Mac <= 1.11, or Docker Toolbox for Windows
@@ -49,6 +52,8 @@ Please add the following lines to `/etc/hosts` or `C:\Windows\System32\Drivers\e
 192.168.99.100    kafka-rest-proxy
 192.168.99.100    kafka-topics-ui
 192.168.99.100    kafka-connect-ui
+192.168.99.100    zoonavigator-web
+192.168.99.100    zoonavigator-api
 ```
 
 ## Single Zookeeper / Single Kafka
@@ -117,6 +122,7 @@ docker-compose -f zk-multiple-kafka-multiple.yml down
  - Kafka Topics UI: `kafka-topics-ui:8000`
  - Kafka Connect: `kafka-connect:8083`
  - Kafka Connect UI: `kafka-connect-ui:8003`
+ - Zoonavigator Web: `zoonavigator-web:8004`
 
 
  Run with:
