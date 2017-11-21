@@ -17,7 +17,7 @@ services:
 
 
   kafka1:
-    image: confluentinc/cp-kafka:3.3.0
+    image: confluentinc/cp-kafka:3.3.1
     hostname: kafka1
     ports:
       - "9092:9092"
@@ -34,7 +34,7 @@ services:
       - zoo1
 
   kafka-schema-registry:
-    image: confluentinc/cp-schema-registry:3.3.0
+    image: confluentinc/cp-schema-registry:3.3.1
     hostname: kafka-schema-registry
     ports:
       - "8081:8081"
@@ -58,7 +58,7 @@ services:
       - kafka-schema-registry
 
   kafka-rest-proxy:
-    image: confluentinc/cp-kafka-rest:3.3.0
+    image: confluentinc/cp-kafka-rest:3.3.1
     hostname: kafka-rest-proxy
     ports:
       - "8082:8082"
@@ -74,7 +74,7 @@ services:
       - kafka-schema-registry
 
   kafka-topics-ui:
-    image: landoop/kafka-topics-ui:0.9.2
+    image: landoop/kafka-topics-ui:0.9.3
     hostname: kafka-topics-ui
     ports:
       - "8000:8000"
@@ -88,7 +88,7 @@ services:
       - kafka-rest-proxy
 
   kafka-connect:
-    image: confluentinc/cp-kafka-connect:3.3.0
+    image: confluentinc/cp-kafka-connect:3.3.1
     hostname: kafka-connect
     ports:
       - "8083:8083"
@@ -118,7 +118,7 @@ services:
       - kafka-rest-proxy
 
   kafka-connect-ui:
-    image: landoop/kafka-connect-ui:0.9.2
+    image: landoop/kafka-connect-ui:0.9.3
     hostname: kafka-connect-ui
     ports:
       - "8003:8000"
@@ -129,7 +129,7 @@ services:
       - kafka-connect
 
   zoonavigator-web:
-    image: elkozmon/zoonavigator-web:0.2.1
+    image: elkozmon/zoonavigator-web:0.2.3
     ports:
      - "8004:8000"
     environment:
@@ -142,7 +142,7 @@ services:
     restart: unless-stopped
 
   zoonavigator-api:
-    image: elkozmon/zoonavigator-api:0.2.1
+    image: elkozmon/zoonavigator-api:0.2.3
     environment:
       SERVER_HTTP_PORT: 9000
     restart: unless-stopped
