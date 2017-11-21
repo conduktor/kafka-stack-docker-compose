@@ -5,14 +5,14 @@ This replicates as well as possible real deployment configurations, where you ha
 ## Stack version
 
   - Zookeeper version: 3.4.9
-  - Kafka version: 0.11.0.0 (Confluent 3.3.0)
-  - Kafka Schema Registry: Confluent 3.3.0
+  - Kafka version: 0.11.0.1 (Confluent 3.3.1)
+  - Kafka Schema Registry: Confluent 3.3.1
   - Kafka Schema Registry UI: 0.9.1
-  - Kafka Rest Proxy: Confluent 3.3.0
-  - Kafka Topics UI: 0.9.2
-  - Kafka Connect: Confluent 3.3.0
-  - Kafka Connect UI: 0.9.2
-  - Zoonavigator: 0.2.1
+  - Kafka Rest Proxy: Confluent 3.3.1
+  - Kafka Topics UI: 0.9.3
+  - Kafka Connect: Confluent 3.3.1
+  - Kafka Connect UI: 0.9.3
+  - Zoonavigator: 0.2.3
 
 # Requirements
 
