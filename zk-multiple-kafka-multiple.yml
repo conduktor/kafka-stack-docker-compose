@@ -42,7 +42,7 @@ services:
 
 
   kafka1:
-    image: confluentinc/cp-kafka:3.3.1
+    image: confluentinc/cp-kafka:4.0.0
     hostname: kafka1
     ports:
       - "9092:9092"
@@ -60,7 +60,7 @@ services:
       - zoo3
 
   kafka2:
-    image: confluentinc/cp-kafka:3.3.1
+    image: confluentinc/cp-kafka:4.0.0
     hostname: kafka2
     ports:
       - "9093:9093"
@@ -78,7 +78,7 @@ services:
       - zoo3
 
   kafka3:
-    image: confluentinc/cp-kafka:3.3.1
+    image: confluentinc/cp-kafka:4.0.0
     hostname: kafka3
     ports:
       - "9094:9094"
