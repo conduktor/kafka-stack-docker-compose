@@ -1,0 +1,10 @@
+# this file is only used for GitHub
+# it is not related to your Kafka Streams learning
+sudo: required
+
+services:
+  - docker
+
+script:
+# test the java components
+- ./test.sh zk-single-kafka-single.yml 2
