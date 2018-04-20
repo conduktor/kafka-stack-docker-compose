@@ -28,7 +28,7 @@ addons:
         key_url: 'https://packages.confluent.io/deb/4.1/archive.key'
     packages:
       - confluent-platform-oss-2.11
-      - kafkacat
+      # - kafkacat
 
 script:
 # test the java components
