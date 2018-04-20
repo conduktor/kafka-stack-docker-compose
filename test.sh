@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ex
 
-docker-compose -f $1 up  
+docker-compose -f $1 up -d
 sleep 10
 # some tests on Kafka
 running = `docker-compose -f $1 ps | grep Up | wc -l`
