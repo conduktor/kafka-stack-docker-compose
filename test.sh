@@ -43,7 +43,7 @@ kafka_tests(){
     if [ "$rows" != "100" ]; then
         kafka-console-consumer --bootstrap-server localhost:9092 --topic test-topic --from-beginning --timeout-ms 2000 | wc -l
         exit 1
-    else;
+    else
         echo "Kafka Test Success"
     fi
 }
