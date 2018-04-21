@@ -19,7 +19,7 @@ kafka_tests(){
     rows=`kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test-topic --from-beginning --timeout-ms 2000 | wc -l`
     # rows=`kafkacat -C -b localhost:9092 -t test_topic -o beginning -e | wc -l `
     if [ "$rows" != "100" ]; then
-        kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test-topic --from-beginning --timeout-ms 2000 | wc -l
+        kafka-console-consumer --bootstrap-server localhost:9092 --topic test-topic --from-beginning --timeout-ms 2000 | wc -l
         exit 1
     fi
 }
