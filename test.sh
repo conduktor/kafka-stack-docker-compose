@@ -55,7 +55,7 @@ sleep 10
 docker-compose -f $file ps
 # tests
 all_great $1 $2
-kafka_tests
+kafka_tests $1
 all_great $1 $2
 # teardown
 docker-compose -f $file down
