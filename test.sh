@@ -34,7 +34,7 @@ all_great(){
 
 kafka_tests(){
     echo "Testing Kafka"
-    topic="test_topic"
+    topic="testtopic"
     replication_factor="1"
     for i in 1 2 3 4 5; do echo "trying to create test topic" && kafka-topics --create --topic $topic --replication-factor $replication_factor --partitions 12 --zookeeper localhost:2181 && break || sleep 5; done
     for x in {1..100}; do echo $x; done | kafka-console-producer --broker-list localhost:9092 --topic $topic
