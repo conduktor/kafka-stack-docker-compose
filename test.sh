@@ -14,7 +14,7 @@ f () {
     # ${BASH_LINENO[0]} contains the line number in the script of that command
     # exit the script or return to try again, etc.
     # creating stack...
-    docker-compose -f $file up -d
+    docker-compose -f $file down
     exit $errcode  # or use some other value or do return instead
 }
 trap f ERR
@@ -58,4 +58,5 @@ all_great $1 $2
 kafka_tests
 all_great $1 $2
 # teardown
+docker-compose -f $file down
 echo "Success!"
