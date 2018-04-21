@@ -1,4 +1,23 @@
 #!/bin/bash
+set -e
+
+export file=$1
+#!/bin/bash
+f () {
+    errcode=$? # save the exit code as the first thing done in the trap function
+    echo "error $errorcode"
+    echo "the command executing at the time of the error was"
+    echo "$BASH_COMMAND"
+    echo "on line ${BASH_LINENO[0]}"
+    # do some error handling, cleanup, logging, notification
+    # $BASH_COMMAND contains the command that was being executed at the time of the trap
+    # ${BASH_LINENO[0]} contains the line number in the script of that command
+    # exit the script or return to try again, etc.
+    # creating stack...
+    docker-compose -f $file up -d
+    exit $errcode  # or use some other value or do return instead
+}
+trap f ERR
 
 all_great(){
     # for testing
@@ -17,7 +36,7 @@ kafka_tests(){
     echo "Testing Kafka"
     topic="test_topic"
     replication_factor="1"
-    for i in 1 2 3 4 5; do kafka-topics --create --topic $topic --replication-factor $replication_factor --partitions 12 --zookeeper localhost:2181 && break || sleep 5; done
+    for i in 1 2 3 4 5; do echo "trying to create test topic" && kafka-topics --create --topic $topic --replication-factor $replication_factor --partitions 12 --zookeeper localhost:2181 && break || sleep 5; done
     for x in {1..100}; do echo $x; done | kafka-console-producer --broker-list localhost:9092 --topic $topic
     rows=`kafka-console-consumer --bootstrap-server localhost:9092 --topic $topic --from-beginning --timeout-ms 2000 | wc -l`
     # rows=`kafkacat -C -b localhost:9092 -t $topic -o beginning -e | wc -l `
@@ -30,10 +49,10 @@ kafka_tests(){
 }
 
 # creating stack...
-docker-compose -f $1 up -d
+docker-compose -f $file up -d
 sleep 10
 # logging
-docker-compose -f $1 ps
+docker-compose -f $file ps
 # tests
 all_great $1 $2
 kafka_tests
