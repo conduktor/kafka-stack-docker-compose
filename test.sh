@@ -14,9 +14,9 @@ all_great(){
 }
 
 kafka_tests(){
-    kafka-topics --create --topic test_topic --replication-factor 1 --partitions 12 --zookeeper localhost:2181
+    sleep 2 && kafka-topics --create --topic test_topic --replication-factor 1 --partitions 12 --zookeeper localhost:2181
     for x in {1..100}; do echo $x; done | kafka-console-producer --broker-list localhost:9092 --topic test_topic
-    rows=`kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test-topic --from-beginning --timeout-ms 2000 | wc -l`
+    rows=`kafka-console-consumer --bootstrap-server localhost:9092 --topic test-topic --from-beginning --timeout-ms 2000 | wc -l`
     # rows=`kafkacat -C -b localhost:9092 -t test_topic -o beginning -e | wc -l `
     if [ "$rows" != "100" ]; then
         kafka-console-consumer --bootstrap-server localhost:9092 --topic test-topic --from-beginning --timeout-ms 2000 | wc -l
