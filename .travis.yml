@@ -2,25 +2,12 @@
 # it is not related to your Kafka Streams learning
 sudo: required
 
+env:
+  - DOCKER_HOST_IP=127.0.0.1
+
 services:
   - docker
 
-addons:
-  hosts:
-    - kafka1
-    - kafka2
-    - kafka3
-    - zoo1
-    - zoo2
-    - zoo3
-    - kafka-schema-registry
-    - kafka-schema-registry-ui
-    - kafka-rest-proxy
-    - kafka-topics-ui
-    - kafka-connect-ui
-    - zoonavigator-web
-    - zoonavigator-api
-    
   # install the kafka binaries
   apt:
     sources:
@@ -32,8 +19,8 @@ addons:
 
 script:
 # test the java components
-- ./test.sh zk-single-kafka-single.yml 2
-- ./test.sh zk-multiple-kafka-single.yml 4
+# - ./test.sh zk-single-kafka-single.yml 2
+# - ./test.sh zk-multiple-kafka-single.yml 4
 - ./test.sh zk-single-kafka-multiple.yml 4
-- ./test.sh zk-multiple-kafka-multiple.yml 6
-- ./test.sh full-stack.yml 10
+# - ./test.sh zk-multiple-kafka-multiple.yml 6
+# - ./test.sh full-stack.yml 10
