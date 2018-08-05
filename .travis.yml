@@ -8,6 +8,7 @@ env:
 services:
   - docker
 
+addons:
   # install the kafka binaries
   apt:
     sources:
