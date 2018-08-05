@@ -20,8 +20,8 @@ addons:
 
 script:
 # test the java components
-# - ./test.sh zk-single-kafka-single.yml 2
-# - ./test.sh zk-multiple-kafka-single.yml 4
+- ./test.sh zk-single-kafka-single.yml 2
+- ./test.sh zk-multiple-kafka-single.yml 4
 - ./test.sh zk-single-kafka-multiple.yml 4
-# - ./test.sh zk-multiple-kafka-multiple.yml 6
-# - ./test.sh full-stack.yml 10
+- ./test.sh zk-multiple-kafka-multiple.yml 6
+- ./test.sh full-stack.yml 10
