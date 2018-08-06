@@ -3,7 +3,8 @@
 sudo: required
 
 env:
-  - DOCKER_HOST_IP=127.0.0.1
+  # - DOCKER_HOST_IP=127.0.0.1
+  - DOCKER_HOST_IP=192.168.99.100
 
 services:
   - docker
@@ -17,6 +18,12 @@ addons:
     packages:
       - confluent-platform-oss-2.11
       # - kafkacat
+
+before_script: |
+  if [ "$DOCKER_HOST_IP" = "192.168.99.100" ] ; then
+    docker-machine create --driver virtualbox dockertoolboxmachine
+    eval $(docker-machine env dockertoolboxmachine)
+  fi
 
 script:
 # test the java components
