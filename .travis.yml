@@ -18,6 +18,7 @@ addons:
     packages:
       - confluent-platform-oss-2.11
       # - kafkacat
+      - virtualbox
 
 before_script: |
   if [ "$DOCKER_HOST_IP" = "192.168.99.100" ] ; then
