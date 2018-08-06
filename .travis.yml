@@ -2,25 +2,14 @@
 # it is not related to your Kafka Streams learning
 sudo: required
 
+env:
+  - DOCKER_HOST_IP=127.0.0.1
+  # - DOCKER_HOST_IP=192.168.99.100
+
 services:
   - docker
 
 addons:
-  hosts:
-    - kafka1
-    - kafka2
-    - kafka3
-    - zoo1
-    - zoo2
-    - zoo3
-    - kafka-schema-registry
-    - kafka-schema-registry-ui
-    - kafka-rest-proxy
-    - kafka-topics-ui
-    - kafka-connect-ui
-    - zoonavigator-web
-    - zoonavigator-api
-    
   # install the kafka binaries
   apt:
     sources:

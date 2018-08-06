@@ -3,7 +3,9 @@
 
 # kafka-stack-docker-compose
 
-This replicates as well as possible real deployment configurations, where you have your zookeeper servers and kafka servers actually all distinct from each other. This solves all the networking hurdles that comes with docker-compose, and is compatible cross platform. It only requires an update to your host files.
+This replicates as well as possible real deployment configurations, where you have your zookeeper servers and kafka servers actually all distinct from each other. This solves all the networking hurdles that comes with Docker and docker-compose, and is compatible cross platform.
+
+[UPDATE]: No /etc/hosts file changes are necessary anymore. Explanations at: https://rmoff.net/2018/08/02/kafka-listeners-explained/
 
 ## Stack version
 
@@ -19,52 +21,29 @@ This replicates as well as possible real deployment configurations, where you ha
 
 # Requirements
 
-## Host File changes
+## Docker
 
-See https://support.rackspace.com/how-to/modify-your-hosts-file/ to detailed instructions on how to modify your host files.
-
-If you are using Docker for Mac >= 1.12, Docker for Linux, or Docker for Windows 10, then please add the following lines to `/etc/hosts` or `C:\Windows\System32\Drivers\etc\hosts`:
+Please export your environment before starting the stack:
 ```
-127.0.0.1     kafka1
-127.0.0.1     kafka2
-127.0.0.1     kafka3
-127.0.0.1     zoo1
-127.0.0.1     zoo2
-127.0.0.1     zoo3
-127.0.0.1     kafka-schema-registry
-127.0.0.1     kafka-schema-registry-ui
-127.0.0.1     kafka-rest-proxy
-127.0.0.1     kafka-topics-ui
-127.0.0.1     kafka-connect-ui
-127.0.0.1     zoonavigator-web
-127.0.0.1     zoonavigator-api
+export DOCKER_HOST_IP=127.0.0.1
 ```
+(that's the default value and you actually don't need to do a thing)
 
+## Docker-Toolbox
 If you are using Docker for Mac <= 1.11, or Docker Toolbox for Windows
 (your docker machine IP is usually `192.168.99.100`)
-Please add the following lines to `/etc/hosts` or `C:\Windows\System32\Drivers\etc\hosts`:
+
+Please export your environment before starting the stack:
 ```
-192.168.99.100    kafka1
-192.168.99.100    kafka2
-192.168.99.100    kafka3
-192.168.99.100    zoo1
-192.168.99.100    zoo2
-192.168.99.100    zoo3
-192.168.99.100    kafka-schema-registry
-192.168.99.100    kafka-schema-registry-ui
-192.168.99.100    kafka-rest-proxy
-192.168.99.100    kafka-topics-ui
-192.168.99.100    kafka-connect-ui
-192.168.99.100    zoonavigator-web
-192.168.99.100    zoonavigator-api
+export DOCKER_HOST_IP=192.168.99.100
 ```
 
 ## Single Zookeeper / Single Kafka
 
 This configuration fits most development requirements.
 
- - Zookeeper will be available at `zoo1:2181`
- - Kafka will be available at `kafka1:9092`
+ - Zookeeper will be available at `$DOCKER_HOST_IP:2181`
+ - Kafka will be available at `$DOCKER_HOST_IP:9092`
 
 
 Run with:
@@ -77,8 +56,8 @@ docker-compose -f zk-single-kafka-single.yml down
 
 If you want to have two brokers and experiment with replication / fault-tolerance.
 
-- Zookeeper will be available at `zoo1:2181`
-- Kafka will be available at `kafka1:9092,kafka2:9093,kafka3:9094`
+- Zookeeper will be available at `$DOCKER_HOST_IP:2181`
+- Kafka will be available at `$DOCKER_HOST_IP:9092,$DOCKER_HOST_IP:9093,$DOCKER_HOST_IP:9094`
 
 
 Run with:
@@ -91,13 +70,13 @@ docker-compose -f zk-single-kafka-multiple.yml down
 
 If you want to have three zookeeper and experiment with zookeeper fault-tolerance.
 
-- Zookeeper will be available at `zoo1:2181,zoo2:2182,zoo3:2183`
-- Kafka will be available at `kafka1:9092`
+- Zookeeper will be available at `$DOCKER_HOST_IP:2181,$DOCKER_HOST_IP:2182,$DOCKER_HOST_IP:2183`
+- Kafka will be available at `$DOCKER_HOST_IP:9092`
 
 Run with:
 ```
 docker-compose -f zk-multiple-kafka-single.yml up
-docker-compose -f zk-multiple-kafka-single.yml down
+docker-compose -f ²zk-multiple-kafka-single.yml down
 ```
 
 
@@ -105,8 +84,8 @@ docker-compose -f zk-multiple-kafka-single.yml down
 
 If you want to have three zookeeper and two kafka brokers to experiment with production setup.
 
-- Zookeeper will be available at `zoo1:2181,zoo2:2182,zoo3:2183`
-- Kafka will be available at `kafka1:9092,kafka2:9093,kafka3:9094`
+- Zookeeper will be available at `$DOCKER_HOST_IP:2181,$DOCKER_HOST_IP:2182,$DOCKER_HOST_IP:2183`
+- Kafka will be available at `$DOCKER_HOST_IP:9092,$DOCKER_HOST_IP:9093,$DOCKER_HOST_IP:9094`
 
 Run with:
 ```
@@ -117,15 +96,15 @@ docker-compose -f zk-multiple-kafka-multiple.yml down
 
 ## Full stack
 
- - Single Zookeeper: `zoo1:2181`
- - Single Kafka: `kafka1:9092`
- - Kafka Schema Registry: `kafka-schema-registry:8081`
- - Kafka Schema Registry UI: `kafka-schema-registry-ui:8001`
- - Kafka Rest Proxy: `kafka-rest-proxy:8082`
- - Kafka Topics UI: `kafka-topics-ui:8000`
- - Kafka Connect: `kafka-connect:8083`
- - Kafka Connect UI: `kafka-connect-ui:8003`
- - Zoonavigator Web: `zoonavigator-web:8004`
+ - Single Zookeeper: `$DOCKER_HOST_IP:2181`
+ - Single Kafka: `$DOCKER_HOST_IP:9092`
+ - Kafka Schema Registry: `$DOCKER_HOST_IP:8081`
+ - Kafka Schema Registry UI: `$DOCKER_HOST_IP:8001`
+ - Kafka Rest Proxy: `$DOCKER_HOST_IP:8082`
+ - Kafka Topics UI: `$DOCKER_HOST_IP:8000`
+ - Kafka Connect: `$DOCKER_HOST_IP:8083`
+ - Kafka Connect UI: `$DOCKER_HOST_IP:8003`
+ - Zoonavigator Web: `$DOCKER_HOST_IP:8004`
 
 
  Run with:
