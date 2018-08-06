@@ -76,7 +76,7 @@ If you want to have three zookeeper and experiment with zookeeper fault-toleranc
 Run with:
 ```
 docker-compose -f zk-multiple-kafka-single.yml up
-docker-compose -f ²zk-multiple-kafka-single.yml down
+docker-compose -f zk-multiple-kafka-single.yml down
 ```
 
 
