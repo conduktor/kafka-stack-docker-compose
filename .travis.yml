@@ -3,8 +3,8 @@
 sudo: required
 
 env:
-  # - DOCKER_HOST_IP=127.0.0.1
-  - DOCKER_HOST_IP=192.168.99.100
+  - DOCKER_HOST_IP=127.0.0.1
+  # - DOCKER_HOST_IP=192.168.99.100
 
 services:
   - docker
@@ -18,20 +18,6 @@ addons:
     packages:
       - confluent-platform-oss-2.11
       # - kafkacat
-
-before_script: |
-  if [ "$DOCKER_HOST_IP" = "192.168.99.100" ] ; then
-    curl -L https://github.com/docker/machine/releases/download/v0.15.0/docker-machine-$(uname -s)-$(uname -m) >/tmp/docker-machine &&
-    chmod +x /tmp/docker-machine &&
-    sudo cp /tmp/docker-machine /usr/local/bin/docker-machine
-    wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-    wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
-    sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" >> /etc/apt/sources.list.d/virtualbox.list'
-    sudo apt update
-    sudo apt-get install virtualbox-5.2
-    docker-machine create --driver virtualbox dockertoolboxmachine
-    eval $(docker-machine env dockertoolboxmachine)
-  fi
 
 script:
 # test the java components
