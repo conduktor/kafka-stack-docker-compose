@@ -122,3 +122,29 @@ A: Add the following line to your docker-compose environment variables: `KAFKA_L
 
 Q: How do I delete data to start fresh?
 A: Your data is persisted from within the docker compose folder, so if you want for example to reset the data in the full-stack docker compose, first do a `docker-compose -f full-stack.yml down`, then remove the directory `full-stack`, for example by doing `rm -r -f full-stack`.
+
+Q: Can I change the zookeeper ports?
+A: yes. Say you want to change `zoo1` port to `12181` (only relevant lines are shown):
+```
+  zoo1:
+    ports:
+      - "12181:12181"
+    environment:
+        ZOO_PORT: 12181
+        
+  kafka1:
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: "zoo1:12181"
+```
+
+Q: Can I change the Kafka ports?
+A: yes. Say you want to change `kafka1` port to `12345` (only relevant lines are shown). Note only `LISTENER_DOCKER_EXTERNAL` changes:
+```
+  kafka1:
+    image: confluentinc/cp-kafka:5.0.0
+    hostname: kafka1
+    ports:
+      - "12345:12345"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka1:19092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:12345
+```
