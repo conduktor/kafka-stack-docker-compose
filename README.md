@@ -117,15 +117,15 @@ docker-compose -f zk-multiple-kafka-multiple.yml down
 
 ## Kafka
 
-Q: Kafka's log is too verbose, how can I reduce it?
+**Q: Kafka's log is too verbose, how can I reduce it?**
 
 A: Add the following line to your docker-compose environment variables: `KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"`. Full logging control can be accessed here: https://github.com/confluentinc/cp-docker-images/blob/master/debian/kafka/include/etc/confluent/docker/log4j.properties.template
 
-Q: How do I delete data to start fresh?
+**Q: How do I delete data to start fresh?**
 
 A: Your data is persisted from within the docker compose folder, so if you want for example to reset the data in the full-stack docker compose, first do a `docker-compose -f full-stack.yml down`, then remove the directory `full-stack`, for example by doing `rm -r -f full-stack`.
 
-Q: Can I change the zookeeper ports?
+**Q: Can I change the zookeeper ports?**
 
 A: yes. Say you want to change `zoo1` port to `12181` (only relevant lines are shown):
 ```
@@ -140,7 +140,7 @@ A: yes. Say you want to change `zoo1` port to `12181` (only relevant lines are s
       KAFKA_ZOOKEEPER_CONNECT: "zoo1:12181"
 ```
 
-Q: Can I change the Kafka ports?
+**Q: Can I change the Kafka ports?**
 
 A: yes. Say you want to change `kafka1` port to `12345` (only relevant lines are shown). Note only `LISTENER_DOCKER_EXTERNAL` changes:
 ```
