@@ -75,7 +75,7 @@ services:
       - kafka-schema-registry
 
   kafka-topics-ui:
-    image: landoop/kafka-topics-ui:0.9.3
+    image: landoop/kafka-topics-ui:0.9.4
     hostname: kafka-topics-ui
     ports:
       - "8000:8000"
