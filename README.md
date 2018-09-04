@@ -14,7 +14,7 @@ This replicates as well as possible real deployment configurations, where you ha
   - Kafka Schema Registry: Confluent 5.0.0
   - Kafka Schema Registry UI: 0.9.4
   - Kafka Rest Proxy: Confluent 5.0.0
-  - Kafka Topics UI: 0.9.3
+  - Kafka Topics UI: 0.9.4
   - Kafka Connect: Confluent 5.0.0
   - Kafka Connect UI: 0.9.4
   - Zoonavigator: 0.4.0
