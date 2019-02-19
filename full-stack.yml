@@ -132,6 +132,19 @@ services:
     depends_on:
       - kafka-connect
 
+  ksql-server:
+    image: confluentinc/cp-ksql-server:5.1.0
+    hostname: ksql-server
+    ports:
+      - "8088:8088"
+    environment:
+      KSQL_BOOTSTRAP_SERVERS: PLAINTEXT://kafka1:19092
+      KSQL_LISTENERS: http://0.0.0.0:8088/
+      KSQL_KSQL_SERVICE_ID: ksql-server_
+    depends_on:
+      - zoo1
+      - kafka1
+
   zoonavigator-web:
     image: elkozmon/zoonavigator-web:0.5.1
     ports:
