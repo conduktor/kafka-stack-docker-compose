@@ -17,6 +17,7 @@ This replicates as well as possible real deployment configurations, where you ha
   - Kafka Topics UI: 0.9.4
   - Kafka Connect: Confluent 5.1.0
   - Kafka Connect UI: 0.9.4
+  - KSQL Server: Confluent 5.1.0
   - Zoonavigator: 0.5.1
 
 # Requirements
@@ -104,6 +105,7 @@ docker-compose -f zk-multiple-kafka-multiple.yml down
  - Kafka Topics UI: `$DOCKER_HOST_IP:8000`
  - Kafka Connect: `$DOCKER_HOST_IP:8083`
  - Kafka Connect UI: `$DOCKER_HOST_IP:8003`
+ - KSQL Server: `$DOCKER_HOST_IP:8088`
  - Zoonavigator Web: `$DOCKER_HOST_IP:8004`
 
 
