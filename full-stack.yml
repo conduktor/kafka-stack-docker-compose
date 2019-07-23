@@ -17,7 +17,7 @@ services:
 
 
   kafka1:
-    image: confluentinc/cp-kafka:5.0.0
+    image: confluentinc/cp-kafka:5.3.0
     hostname: kafka1
     ports:
       - "9092:9092"
@@ -35,7 +35,7 @@ services:
       - zoo1
 
   kafka-schema-registry:
-    image: confluentinc/cp-schema-registry:5.0.0
+    image: confluentinc/cp-schema-registry:5.3.0
     hostname: kafka-schema-registry
     ports:
       - "8081:8081"
@@ -59,7 +59,7 @@ services:
       - kafka-schema-registry
 
   kafka-rest-proxy:
-    image: confluentinc/cp-kafka-rest:5.0.0
+    image: confluentinc/cp-kafka-rest:5.3.0
     hostname: kafka-rest-proxy
     ports:
       - "8082:8082"
@@ -89,7 +89,7 @@ services:
       - kafka-rest-proxy
 
   kafka-connect:
-    image: confluentinc/cp-kafka-connect:5.0.0
+    image: confluentinc/cp-kafka-connect:5.3.0
     hostname: kafka-connect
     ports:
       - "8083:8083"
@@ -112,6 +112,9 @@ services:
       CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "1"
       CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "1"
       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_PLUGIN_PATH: '/usr/share/java,/etc/kafka-connect/jars'
+    volumes:
+      - ./connectors:/etc/kafka-connect/jars/
     depends_on:
       - zoo1
       - kafka1
@@ -129,8 +132,21 @@ services:
     depends_on:
       - kafka-connect
 
+  ksql-server:
+    image: confluentinc/cp-ksql-server:5.3.0
+    hostname: ksql-server
+    ports:
+      - "8088:8088"
+    environment:
+      KSQL_BOOTSTRAP_SERVERS: PLAINTEXT://kafka1:19092
+      KSQL_LISTENERS: http://0.0.0.0:8088/
+      KSQL_KSQL_SERVICE_ID: ksql-server_
+    depends_on:
+      - zoo1
+      - kafka1
+
   zoonavigator-web:
-    image: elkozmon/zoonavigator-web:0.4.0
+    image: elkozmon/zoonavigator-web:0.5.1
     ports:
      - "8004:8000"
     environment:
@@ -142,7 +158,7 @@ services:
      - zoonavigator-api
 
   zoonavigator-api:
-    image: elkozmon/zoonavigator-api:0.4.0
+    image: elkozmon/zoonavigator-api:0.5.1
     environment:
       SERVER_HTTP_PORT: 9000
     depends_on:
