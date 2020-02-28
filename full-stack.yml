@@ -145,21 +145,10 @@ services:
       - zoo1
       - kafka1
 
-  zoonavigator-web:
-    image: elkozmon/zoonavigator-web:0.5.1
+  zoonavigator:
+    image: elkozmon/zoonavigator:0.8.0
     ports:
-     - "8004:8000"
+      - "8004:8000"
     environment:
-      API_HOST: "zoonavigator-api"
-      API_PORT: 9000
-    links:
-     - zoonavigator-api
-    depends_on:
-     - zoonavigator-api
-
-  zoonavigator-api:
-    image: elkozmon/zoonavigator-api:0.5.1
-    environment:
-      SERVER_HTTP_PORT: 9000
-    depends_on:
-      - zoo1
+      HTTP_PORT: 8000
+      AUTO_CONNECT_CONNECTION_STRING: zoo1:2181
