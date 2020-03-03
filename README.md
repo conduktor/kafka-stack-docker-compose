@@ -18,7 +18,7 @@ This replicates as well as possible real deployment configurations, where you ha
   - Kafka Connect: Confluent 5.4.0
   - Kafka Connect UI: 0.9.4
   - KSQL Server: Confluent 5.4.0
-  - Zoonavigator: 0.5.1
+  - Zoonavigator: 0.8.0
 
 # Requirements
 
