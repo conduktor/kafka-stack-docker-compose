@@ -17,7 +17,7 @@ services:
 
 
   kafka1:
-    image: confluentinc/cp-kafka:5.4.0
+    image: confluentinc/cp-kafka:5.4.1
     hostname: kafka1
     ports:
       - "9092:9092"
@@ -35,7 +35,7 @@ services:
       - zoo1
 
   kafka-schema-registry:
-    image: confluentinc/cp-schema-registry:5.4.0
+    image: confluentinc/cp-schema-registry:5.4.1
     hostname: kafka-schema-registry
     ports:
       - "8081:8081"
@@ -59,7 +59,7 @@ services:
       - kafka-schema-registry
 
   kafka-rest-proxy:
-    image: confluentinc/cp-kafka-rest:5.4.0
+    image: confluentinc/cp-kafka-rest:5.4.1
     hostname: kafka-rest-proxy
     ports:
       - "8082:8082"
@@ -89,7 +89,7 @@ services:
       - kafka-rest-proxy
 
   kafka-connect:
-    image: confluentinc/cp-kafka-connect:5.4.0
+    image: confluentinc/cp-kafka-connect:5.4.1
     hostname: kafka-connect
     ports:
       - "8083:8083"
@@ -133,7 +133,7 @@ services:
       - kafka-connect
 
   ksql-server:
-    image: confluentinc/cp-ksql-server:5.4.0
+    image: confluentinc/cp-ksql-server:5.4.1
     hostname: ksql-server
     ports:
       - "8088:8088"
