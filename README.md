@@ -4,19 +4,20 @@
 
 This replicates as well as possible real deployment configurations, where you have your zookeeper servers and kafka servers actually all distinct from each other. This solves all the networking hurdles that comes with Docker and docker-compose, and is compatible cross platform.
 
-[UPDATE]: No /etc/hosts file changes are necessary anymore. Explanations at: https://rmoff.net/2018/08/02/kafka-listeners-explained/
+**UPDATE**: No /etc/hosts file changes are necessary anymore. Explanations at: https://rmoff.net/2018/08/02/kafka-listeners-explained/
 
 ## Stack version
 
   - Zookeeper version: 3.4.9
-  - Kafka version: 2.1.0 (Confluent 5.1.0)
-  - Kafka Schema Registry: Confluent 5.1.0
+  - Kafka version: 2.4.0 (Confluent 5.4.1)
+  - Kafka Schema Registry: Confluent 5.4.1
   - Kafka Schema Registry UI: 0.9.4
-  - Kafka Rest Proxy: Confluent 5.1.0
+  - Kafka Rest Proxy: Confluent 5.4.1
   - Kafka Topics UI: 0.9.4
-  - Kafka Connect: Confluent 5.1.0
+  - Kafka Connect: Confluent 5.4.1
   - Kafka Connect UI: 0.9.4
-  - Zoonavigator: 0.5.1
+  - KSQL Server: Confluent 5.4.1
+  - Zoonavigator: 0.8.0
 
 
 ## Optional: Kafka Desktop Application
@@ -59,7 +60,7 @@ docker-compose -f zk-single-kafka-single.yml down
 
 ## Single Zookeeper / Multiple Kafka
 
-If you want to have two brokers and experiment with replication / fault-tolerance.
+If you want to have three brokers and experiment with kafka replication / fault-tolerance.
 
 - Zookeeper will be available at `$DOCKER_HOST_IP:2181`
 - Kafka will be available at `$DOCKER_HOST_IP:9092,$DOCKER_HOST_IP:9093,$DOCKER_HOST_IP:9094`
@@ -73,7 +74,7 @@ docker-compose -f zk-single-kafka-multiple.yml down
 
 ## Multiple Zookeeper / Single Kafka
 
-If you want to have three zookeeper and experiment with zookeeper fault-tolerance.
+If you want to have three zookeeper nodes and experiment with zookeeper fault-tolerance.
 
 - Zookeeper will be available at `$DOCKER_HOST_IP:2181,$DOCKER_HOST_IP:2182,$DOCKER_HOST_IP:2183`
 - Kafka will be available at `$DOCKER_HOST_IP:9092`
@@ -87,7 +88,7 @@ docker-compose -f zk-multiple-kafka-single.yml down
 
 ## Multiple Zookeeper / Multiple Kafka
 
-If you want to have three zookeeper and two kafka brokers to experiment with production setup.
+If you want to have three zookeeper nodes and three kafka brokers to experiment with production setup.
 
 - Zookeeper will be available at `$DOCKER_HOST_IP:2181,$DOCKER_HOST_IP:2182,$DOCKER_HOST_IP:2183`
 - Kafka will be available at `$DOCKER_HOST_IP:9092,$DOCKER_HOST_IP:9093,$DOCKER_HOST_IP:9094`
@@ -109,6 +110,7 @@ docker-compose -f zk-multiple-kafka-multiple.yml down
  - Kafka Topics UI: `$DOCKER_HOST_IP:8000`
  - Kafka Connect: `$DOCKER_HOST_IP:8083`
  - Kafka Connect UI: `$DOCKER_HOST_IP:8003`
+ - KSQL Server: `$DOCKER_HOST_IP:8088`
  - Zoonavigator Web: `$DOCKER_HOST_IP:8004`
 
 
@@ -150,7 +152,7 @@ A: yes. Say you want to change `zoo1` port to `12181` (only relevant lines are s
 A: yes. Say you want to change `kafka1` port to `12345` (only relevant lines are shown). Note only `LISTENER_DOCKER_EXTERNAL` changes:
 ```
   kafka1:
-    image: confluentinc/cp-kafka:5.1.0
+    image: confluentinc/cp-kafka:5.4.1
     hostname: kafka1
     ports:
       - "12345:12345"
