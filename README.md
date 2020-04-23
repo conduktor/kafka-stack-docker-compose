@@ -9,14 +9,14 @@ This replicates as well as possible real deployment configurations, where you ha
 ## Stack version
 
   - Zookeeper version: 3.4.9
-  - Kafka version: 2.4.0 (Confluent 5.4.1)
-  - Kafka Schema Registry: Confluent 5.4.1
+  - Kafka version: 2.5.0 (Confluent 5.5.0)
+  - Kafka Schema Registry: Confluent 5.5.0
   - Kafka Schema Registry UI: 0.9.4
-  - Kafka Rest Proxy: Confluent 5.4.1
+  - Kafka Rest Proxy: Confluent 5.5.0
   - Kafka Topics UI: 0.9.4
-  - Kafka Connect: Confluent 5.4.1
+  - Kafka Connect: Confluent 5.5.0
   - Kafka Connect UI: 0.9.4
-  - KSQL Server: Confluent 5.4.1
+  - ksqlDB Server: Confluent 5.5.0
   - Zoonavigator: 0.8.0
 
 
@@ -152,7 +152,7 @@ A: yes. Say you want to change `zoo1` port to `12181` (only relevant lines are s
 A: yes. Say you want to change `kafka1` port to `12345` (only relevant lines are shown). Note only `LISTENER_DOCKER_EXTERNAL` changes:
 ```
   kafka1:
-    image: confluentinc/cp-kafka:5.4.1
+    image: confluentinc/cp-kafka:5.5.0
     hostname: kafka1
     ports:
       - "12345:12345"
