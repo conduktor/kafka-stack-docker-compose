@@ -159,3 +159,18 @@ A: yes. Say you want to change `kafka1` port to `12345` (only relevant lines are
     environment:
       KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka1:19092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:12345
 ```
+
+**Q: Kafka is using a lot of disk space for testing. Can I reduce it?
+
+A: yes. This is for testing only!!! Reduce the KAFKA_LOG_SEGMENT_BYTES to 16MB and the KAFKA_LOG_RETENTION_BYTES to 128MB
+
+```
+  kafka1:
+    image: confluentinc/cp-kafka:5.5.0
+    ...
+    environment:
+      ...
+      # For testing small segments 16MB and retention of 128MB
+      KAFKA_LOG_SEGMENT_BYTES: 16777216
+      KAFKA_LOG_RETENTION_BYTES: 134217728
+```
