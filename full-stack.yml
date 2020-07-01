@@ -48,7 +48,7 @@ services:
       - kafka1
 
   schema-registry-ui:
-    image: landoop/schema-registry-ui:0.9.4
+    image: landoop/schema-registry-ui:0.9.5
     hostname: kafka-schema-registry-ui
     ports:
       - "8001:8000"
@@ -122,7 +122,7 @@ services:
       - kafka-rest-proxy
 
   kafka-connect-ui:
-    image: landoop/kafka-connect-ui:0.9.4
+    image: landoop/kafka-connect-ui:0.9.7
     hostname: kafka-connect-ui
     ports:
       - "8003:8000"
