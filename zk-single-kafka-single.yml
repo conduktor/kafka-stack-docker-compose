@@ -15,7 +15,7 @@ services:
       - ./zk-single-kafka-single/zoo1/datalog:/datalog
 
   kafka1:
-    image: confluentinc/cp-kafka:5.5.0
+    image: confluentinc/cp-kafka:5.5.1
     hostname: kafka1
     ports:
       - "9092:9092"
