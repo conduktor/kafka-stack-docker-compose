@@ -12,8 +12,8 @@ services:
         ZOO_PORT: 2181
         ZOO_SERVERS: server.1=zoo1:2888:3888
     volumes:
-      - ./full-stack/zoo1/data:/data
-      - ./full-stack/zoo1/datalog:/datalog
+      - "./full-stack/zoo1/data:/data:rw"
+      - "./full-stack/zoo1/datalog:/datalog:rw"
 
 
   kafka1:
@@ -30,7 +30,7 @@ services:
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     volumes:
-      - ./full-stack/kafka1/data:/var/lib/kafka/data
+      - "./full-stack/kafka1/data:/var/lib/kafka/data:rw"
     depends_on:
       - zoo1
 
@@ -114,7 +114,7 @@ services:
       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
       CONNECT_PLUGIN_PATH: '/usr/share/java,/etc/kafka-connect/jars'
     volumes:
-      - ./connectors:/etc/kafka-connect/jars/
+      - "./connectors:/etc/kafka-connect/jars/:rw"
     depends_on:
       - zoo1
       - kafka1

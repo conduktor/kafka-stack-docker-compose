@@ -11,8 +11,8 @@ services:
         ZOO_PORT: 2181
         ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
     volumes:
-      - ./zk-multiple-kafka-single/zoo1/data:/data
-      - ./zk-multiple-kafka-single/zoo1/datalog:/datalog
+      - "./zk-multiple-kafka-single/zoo1/data:/data:rw"
+      - "./zk-multiple-kafka-single/zoo1/datalog:/datalog:rw"
 
   zoo2:
     image: zookeeper:3.4.9
@@ -24,8 +24,8 @@ services:
         ZOO_PORT: 2182
         ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
     volumes:
-      - ./zk-multiple-kafka-single/zoo2/data:/data
-      - ./zk-multiple-kafka-single/zoo2/datalog:/datalog
+      - "./zk-multiple-kafka-single/zoo2/data:/data:rw"
+      - "./zk-multiple-kafka-single/zoo2/datalog:/datalog:rw"
 
   zoo3:
     image: zookeeper:3.4.9
@@ -37,8 +37,8 @@ services:
         ZOO_PORT: 2183
         ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
     volumes:
-      - ./zk-multiple-kafka-single/zoo3/data:/data
-      - ./zk-multiple-kafka-single/zoo3/datalog:/datalog
+      - "./zk-multiple-kafka-single/zoo3/data:/data:rw"
+      - "./zk-multiple-kafka-single/zoo3/datalog:/datalog:rw"
 
 
   kafka1:
@@ -55,7 +55,7 @@ services:
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     volumes:
-      - ./zk-multiple-kafka-single/kafka1/data:/var/lib/kafka/data
+      - "./zk-multiple-kafka-single/kafka1/data:/var/lib/kafka/data:rw"
     depends_on:
       - zoo1
       - zoo2
