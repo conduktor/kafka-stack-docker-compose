@@ -174,3 +174,17 @@ A: yes. This is for testing only!!! Reduce the KAFKA_LOG_SEGMENT_BYTES to 16MB a
       KAFKA_LOG_SEGMENT_BYTES: 16777216
       KAFKA_LOG_RETENTION_BYTES: 134217728
 ```
+
+**Q: How do I expose kafka?**
+
+A: Incase you want to expose kafka , you must set ```KAFKA_ADVERTISED_LISTENERS``` to the IP of the machine so that kafka is externally accessible. To achieve this you can set ```LISTENER_DOCKER_EXTERNAL``` to the IP of the machine.
+Say IP is ```50.10.2.3```, follow the sample mapping below:
+
+```
+  kafka1:
+    image: confluentinc/cp-kafka:5.5.1
+    ...
+    environment:
+      ...
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka2:19093,LISTENER_DOCKER_EXTERNAL://50.10.2.3:9093
+```
