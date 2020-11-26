@@ -95,7 +95,7 @@ services:
       - zoo2
       - zoo3
   schema-registry:
-    image: confluentinc/cp-schema-registry:5.4.1
+    image: confluentinc/cp-schema-registry:5.5.1
     hostname: schema-registry
     container_name: schema-registry
     depends_on:
