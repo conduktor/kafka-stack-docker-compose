@@ -11,8 +11,8 @@ services:
         ZOO_PORT: 2181
         ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
     volumes:
-      - ./zk-multiple-kafka-multiple/zoo1/data:/data
-      - ./zk-multiple-kafka-multiple/zoo1/datalog:/datalog
+      - ./zk-multiple-kafka-multiple-schema-registry/zoo1/data:/data
+      - ./zk-multiple-kafka-multiple-schema-registry/zoo1/datalog:/datalog
 
   zoo2:
     image: zookeeper:3.4.9
@@ -24,8 +24,8 @@ services:
         ZOO_PORT: 2182
         ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
     volumes:
-      - ./zk-multiple-kafka-multiple/zoo2/data:/data
-      - ./zk-multiple-kafka-multiple/zoo2/datalog:/datalog
+      - ./zk-multiple-kafka-multiple-schema-registry/zoo2/data:/data
+      - ./zk-multiple-kafka-multiple-schema-registry/zoo2/datalog:/datalog
 
   zoo3:
     image: zookeeper:3.4.9
@@ -37,8 +37,8 @@ services:
         ZOO_PORT: 2183
         ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
     volumes:
-      - ./zk-multiple-kafka-multiple/zoo3/data:/data
-      - ./zk-multiple-kafka-multiple/zoo3/datalog:/datalog
+      - ./zk-multiple-kafka-multiple-schema-registry/zoo3/data:/data
+      - ./zk-multiple-kafka-multiple-schema-registry/zoo3/datalog:/datalog
 
 
   kafka1:
@@ -53,7 +53,7 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE=: 'false'
     volumes:
-      - ./zk-multiple-kafka-multiple/kafka1/data:/var/lib/kafka/data
+      - ./zk-multiple-kafka-multiple-schema-registry/kafka1/data:/var/lib/kafka/data
     depends_on:
       - zoo1
       - zoo2
@@ -71,7 +71,7 @@ services:
       KAFKA_BROKER_ID: 2
       KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE=: 'false'
     volumes:
-      - ./zk-multiple-kafka-multiple/kafka2/data:/var/lib/kafka/data
+      - ./zk-multiple-kafka-multiple-schema-registry/kafka2/data:/var/lib/kafka/data
     depends_on:
       - zoo1
       - zoo2
@@ -89,11 +89,12 @@ services:
       KAFKA_BROKER_ID: 3
       KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE=: 'false'
     volumes:
-      - ./zk-multiple-kafka-multiple/kafka3/data:/var/lib/kafka/data
+      - ./zk-multiple-kafka-multiple-schema-registry/kafka3/data:/var/lib/kafka/data
     depends_on:
       - zoo1
       - zoo2
       - zoo3
+
   schema-registry:
     image: confluentinc/cp-schema-registry:5.5.1
     hostname: schema-registry

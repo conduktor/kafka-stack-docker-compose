@@ -25,4 +25,5 @@ script:
 - ./test.sh zk-multiple-kafka-single.yml 4
 - ./test.sh zk-single-kafka-multiple.yml 4
 - ./test.sh zk-multiple-kafka-multiple.yml 6
+- ./test.sh zk-multiple-kafka-multiple-schema-registry.yml 7
 - ./test.sh full-stack.yml 10
