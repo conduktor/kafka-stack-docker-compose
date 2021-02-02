@@ -42,7 +42,7 @@ services:
 
 
   kafka1:
-    image: confluentinc/cp-kafka:5.5.1
+    image: confluentinc/cp-kafka:6.0.0
     hostname: kafka1
     ports:
       - "9092:9092"
