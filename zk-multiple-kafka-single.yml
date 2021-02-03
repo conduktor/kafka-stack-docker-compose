@@ -7,9 +7,9 @@ services:
     ports:
       - "2181:2181"
     environment:
-        ZOO_MY_ID: 1
-        ZOO_PORT: 2181
-        ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
+      ZOO_MY_ID: 1
+      ZOO_PORT: 2181
+      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
     volumes:
       - ./zk-multiple-kafka-single/zoo1/data:/data
       - ./zk-multiple-kafka-single/zoo1/datalog:/datalog
@@ -20,9 +20,9 @@ services:
     ports:
       - "2182:2182"
     environment:
-        ZOO_MY_ID: 2
-        ZOO_PORT: 2182
-        ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
+      ZOO_MY_ID: 2
+      ZOO_PORT: 2182
+      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
     volumes:
       - ./zk-multiple-kafka-single/zoo2/data:/data
       - ./zk-multiple-kafka-single/zoo2/datalog:/datalog
@@ -33,9 +33,9 @@ services:
     ports:
       - "2183:2183"
     environment:
-        ZOO_MY_ID: 3
-        ZOO_PORT: 2183
-        ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
+      ZOO_MY_ID: 3
+      ZOO_PORT: 2183
+      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
     volumes:
       - ./zk-multiple-kafka-single/zoo3/data:/data
       - ./zk-multiple-kafka-single/zoo3/datalog:/datalog

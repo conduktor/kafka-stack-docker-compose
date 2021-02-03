@@ -177,8 +177,8 @@ A: yes. This is for testing only!!! Reduce the KAFKA_LOG_SEGMENT_BYTES to 16MB a
 
 **Q: How do I expose kafka?**
 
-A: Incase you want to expose kafka , you must set ```KAFKA_ADVERTISED_LISTENERS``` to the IP of the machine so that kafka is externally accessible. To achieve this you can set ```LISTENER_DOCKER_EXTERNAL``` to the IP of the machine.
-Say IP is ```50.10.2.3```, follow the sample mapping below:
+A: If you want to expose kafka outside of your local machine, you must set `KAFKA_ADVERTISED_LISTENERS` to the IP of the machine so that kafka is externally accessible. To achieve this you can set `LISTENER_DOCKER_EXTERNAL` to the IP of the machine.
+For example, if the IP of your machine is `50.10.2.3`, follow the sample mapping below:
 
 ```
   kafka1:
