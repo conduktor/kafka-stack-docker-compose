@@ -1,5 +1,12 @@
 [![Build Status](https://travis-ci.org/simplesteph/kafka-stack-docker-compose.svg?branch=master)](https://travis-ci.org/simplesteph/kafka-stack-docker-compose)
 
+# An open-source project by   [![Conduktor.io](https://www.conduktor.io/uploads/conduktor.svg)](https://conduktor.io/)
+
+This project is sponsored by [Conduktor.io](https://www.conduktor.io/), a graphical desktop user interface for Apache Kafka. 
+
+Once you have started your cluster, you can use Conduktor to easily manage it. 
+Just connect against `localhost:9092` if using Docker, or `192.168.99.100` if using Docker Toolbox
+
 # kafka-stack-docker-compose
 
 This replicates as well as possible real deployment configurations, where you have your zookeeper servers and kafka servers actually all distinct from each other. This solves all the networking hurdles that comes with Docker and docker-compose, and is compatible cross platform.
@@ -19,11 +26,6 @@ This replicates as well as possible real deployment configurations, where you ha
   - ksqlDB Server: Confluent 5.5.1
   - Zoonavigator: 0.8.0
 
-
-## Optional: Kafka Desktop Application
-
-Once you have started your cluster, you can use [Conduktor](https://www.conduktor.io/) to easily manage it. 
-Just connect against `localhost:9092` if using Docker, or `192.168.99.100` if using Docker Toolbox
 
 # Requirements
 
