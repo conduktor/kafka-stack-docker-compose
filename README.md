@@ -16,14 +16,14 @@ This replicates as well as possible real deployment configurations, where you ha
 ## Stack version
 
   - Zookeeper version: 3.4.9
-  - Kafka version: 2.6.x (Confluent 6.0.2)
-  - Kafka Schema Registry: Confluent 6.0.2
+  - Kafka version: 2.6.x (Confluent 6.1.0)
+  - Kafka Schema Registry: Confluent 6.1.0
   - Kafka Schema Registry UI: 0.9.5
-  - Kafka Rest Proxy: Confluent 6.0.2
+  - Kafka Rest Proxy: Confluent 6.1.0
   - Kafka Topics UI: 0.9.4
-  - Kafka Connect: Confluent 6.0.2
+  - Kafka Connect: Confluent 6.1.0
   - Kafka Connect UI: 0.9.7
-  - ksqlDB Server: Confluent 6.0.2
+  - ksqlDB Server: Confluent 6.1.0
   - Zoonavigator: 0.8.0
 
 
@@ -154,7 +154,7 @@ A: yes. Say you want to change `zoo1` port to `12181` (only relevant lines are s
 A: yes. Say you want to change `kafka1` port to `12345` (only relevant lines are shown). Note only `LISTENER_DOCKER_EXTERNAL` changes:
 ```
   kafka1:
-    image: confluentinc/cp-kafka:6.0.2
+    image: confluentinc/cp-kafka:6.1.0
     hostname: kafka1
     ports:
       - "12345:12345"
@@ -168,7 +168,7 @@ A: yes. This is for testing only!!! Reduce the KAFKA_LOG_SEGMENT_BYTES to 16MB a
 
 ```
   kafka1:
-    image: confluentinc/cp-kafka:6.0.2
+    image: confluentinc/cp-kafka:6.1.0
     ...
     environment:
       ...
@@ -184,7 +184,7 @@ For example, if the IP of your machine is `50.10.2.3`, follow the sample mapping
 
 ```
   kafka1:
-    image: confluentinc/cp-kafka:6.0.2
+    image: confluentinc/cp-kafka:6.1.0
     ...
     environment:
       ...
