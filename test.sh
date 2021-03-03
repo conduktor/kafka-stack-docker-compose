@@ -2,6 +2,7 @@
 set -e
 
 export file=$1
+
 #!/bin/bash
 f () {
     errcode=$? # save the exit code as the first thing done in the trap function
@@ -51,14 +52,18 @@ kafka_tests(){
 }
 
 # creating stack...
-docker-compose -f $file up -d
+export file_novolume="$file.novolume"
+
+yq eval 'del(.. | select(has("volumes")).volumes)' $file > $file_novolume
+
+docker-compose -f $file_novolume up -d
 sleep 10
 # logging
-docker-compose -f $file ps
+docker-compose -f $file_novolume ps
 # tests
 all_great $1 $2
 kafka_tests $1
 all_great $1 $2
 # teardown
-docker-compose -f $file down
+docker-compose -f $file_novolume down
 echo "Success!"
