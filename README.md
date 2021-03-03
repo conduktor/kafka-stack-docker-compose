@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/simplesteph/kafka-stack-docker-compose.svg?branch=master)](https://travis-ci.org/simplesteph/kafka-stack-docker-compose)
+![Build Status]((https://github.com/conduktor/kafka-stack-docker-compose/actions/workflows/main.yml/badge.svg))
 
 # An open-source project by   [![Conduktor.io](https://www.conduktor.io/uploads/conduktor.svg)](https://conduktor.io/)
 

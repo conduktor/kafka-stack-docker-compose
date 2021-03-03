@@ -1,0 +1,55 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+env:
+  DOCKER_HOST_IP: 127.0.0.1
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: add kafka repo key
+        run: wget -qO - https://packages.confluent.io/deb/4.0/archive.key | sudo apt-key add -
+        
+      - name: add kafka binary repo
+        run: sudo add-apt-repository "deb [arch=amd64] https://packages.confluent.io/deb/4.0 stable main"
+        
+      - name: install kafka binary
+        run: sudo apt-get install confluent-platform-oss-2.11
+      
+
+      # Runs a set of commands using the runners shell
+      - uses: docker-practice/actions-setup-docker@master
+      - name: run test single 2
+        run: ./test.sh zk-single-kafka-single.yml 2
+        
+      - name: run test single 4
+        run: ./test.sh zk-multiple-kafka-single.yml 4
+        
+      - name: run test multiple 4
+        run: ./test.sh zk-single-kafka-multiple.yml 4
+        
+      - name: run test multiple 6
+        run: ./test.sh zk-multiple-kafka-multiple.yml 6
+        
+      - name: run test multiple-schema-registry 7
+        run: ./test.sh zk-multiple-kafka-multiple-schema-registry.yml 7
+      
+      - name: run test full-stack 10
+        run: ./test.sh full-stack.yml 10
