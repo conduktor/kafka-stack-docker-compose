@@ -15,7 +15,7 @@ services:
       - ./zk-single-kafka-multiple/zoo1/datalog:/datalog
 
   kafka1:
-    image: confluentinc/cp-kafka:6.1.0
+    image: confluentinc/cp-kafka:6.0.2
     hostname: kafka1
     ports:
       - "9092:9092"
@@ -32,7 +32,7 @@ services:
       - zoo1
 
   kafka2:
-    image: confluentinc/cp-kafka:6.1.0
+    image: confluentinc/cp-kafka:6.0.2
     hostname: kafka2
     ports:
       - "9093:9093"
@@ -50,7 +50,7 @@ services:
 
 
   kafka3:
-    image: confluentinc/cp-kafka:6.1.0
+    image: confluentinc/cp-kafka:6.0.2
     hostname: kafka3
     ports:
       - "9094:9094"
