@@ -42,7 +42,7 @@ services:
 
 
   kafka1:
-    image: confluentinc/cp-kafka:5.5.1
+    image: confluentinc/cp-kafka:6.0.2
     hostname: kafka1
     ports:
       - "9092:9092"
@@ -61,7 +61,7 @@ services:
       - zoo3
 
   kafka2:
-    image: confluentinc/cp-kafka:5.5.1
+    image: confluentinc/cp-kafka:6.0.2
     hostname: kafka2
     ports:
       - "9093:9093"
@@ -80,7 +80,7 @@ services:
       - zoo3
 
   kafka3:
-    image: confluentinc/cp-kafka:5.5.1
+    image: confluentinc/cp-kafka:6.0.2
     hostname: kafka3
     ports:
       - "9094:9094"
@@ -99,7 +99,7 @@ services:
       - zoo3
 
   kafka-schema-registry:
-    image: confluentinc/cp-schema-registry:5.5.1
+    image: confluentinc/cp-schema-registry:6.0.2
     hostname: kafka-schema-registry
     depends_on:
       - zoo1
