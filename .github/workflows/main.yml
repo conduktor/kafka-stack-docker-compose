@@ -36,11 +36,20 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - uses: docker-practice/actions-setup-docker@master
-      - name: run tests
-        run: |
-           ./test.sh zk-single-kafka-single.yml 2
-           ./test.sh zk-multiple-kafka-single.yml 4
-           ./test.sh zk-single-kafka-multiple.yml 4
-           ./test.sh zk-multiple-kafka-multiple.yml 6
-           ./test.sh zk-multiple-kafka-multiple-schema-registry.yml 7
-           ./test.sh full-stack.yml 10
+      - name: run test single 2
+        run: ./test.sh zk-single-kafka-single.yml 2
+        
+      - name: run test single 4
+        run: ./test.sh zk-multiple-kafka-single.yml 4
+        
+      - name: run test multiple 4
+        run: ./test.sh zk-single-kafka-multiple.yml 4
+        
+      - name: run test multiple 6
+        run: ./test.sh zk-multiple-kafka-multiple.yml 6
+        
+      - name: run test multiple-schema-registry 7
+        run: ./test.sh zk-multiple-kafka-multiple-schema-registry.yml 7
+      
+      - name: run test full-stack 10
+        run: ./test.sh full-stack.yml 10
