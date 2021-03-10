@@ -11,6 +11,8 @@ on:
     branches: [ master ]
 env:
   DOCKER_HOST_IP: 127.0.0.1
+  YQ_VERSION: v4.6.1
+  YQ_BINARY: yq_linux_amd64
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -24,6 +26,10 @@ jobs:
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+
+      - name: install yq
+        run: sudo wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY}.tar.gz -O - | sudo tar xz && sudo mv ${YQ_BINARY} /usr/bin/yq          
+      
       - name: add kafka repo key
         run: wget -qO - https://packages.confluent.io/deb/4.0/archive.key | sudo apt-key add -
         
