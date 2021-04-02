@@ -100,9 +100,28 @@ Run with:
 docker-compose -f zk-multiple-kafka-multiple.yml up
 docker-compose -f zk-multiple-kafka-multiple.yml down
 ```
+## Full stack (no UI)
 
+For this, we recommend using [Conduktor](https://conduktor.io) as your tool to bring a unified UI to all these components
+
+ - Single Zookeeper: `$DOCKER_HOST_IP:2181`
+ - Single Kafka: `$DOCKER_HOST_IP:9092`
+ - Kafka Schema Registry: `$DOCKER_HOST_IP:8081`
+ - Kafka Rest Proxy: `$DOCKER_HOST_IP:8082`
+ - Kafka Connect: `$DOCKER_HOST_IP:8083`
+ - KSQL Server: `$DOCKER_HOST_IP:8088`
+ - Zoonavigator Web: `$DOCKER_HOST_IP:8004`
+
+
+ Run with:
+ ```
+ docker-compose -f full-stack-no-ui.yml up
+ docker-compose -f full-stack-no-ui.yml down
+ ```
 
 ## Full stack
+
+Note: the UI may be outdated or not maintained. See above for Full Stack No UI in combination with [Conduktor](https://conduktor.io)
 
  - Single Zookeeper: `$DOCKER_HOST_IP:2181`
  - Single Kafka: `$DOCKER_HOST_IP:9092`
