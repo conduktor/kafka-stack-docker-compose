@@ -51,5 +51,8 @@ jobs:
       - name: run test multiple-schema-registry 7
         run: ./test.sh zk-multiple-kafka-multiple-schema-registry.yml 7
       
+      - name: run test full-stack-no-ui 6
+        run: ./test.sh full-stack-no-ui.yml 6
+
       - name: run test full-stack 10
         run: ./test.sh full-stack.yml 10
