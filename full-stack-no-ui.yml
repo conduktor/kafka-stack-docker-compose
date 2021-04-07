@@ -92,7 +92,7 @@ services:
       CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "1"
       CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "1"
       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
-      CONNECT_PLUGIN_PATH: '/usr/share/java,/etc/kafka-connect/jars'
+      CONNECT_PLUGIN_PATH: '/usr/share/java,/etc/kafka-connect/jars,/usr/share/confluent-hub-components'
     volumes:
       - ./connectors:/etc/kafka-connect/jars/
     depends_on:
@@ -100,6 +100,13 @@ services:
       - kafka1
       - kafka-schema-registry
       - kafka-rest-proxy
+    command:
+      - bash
+      - -c
+      - |
+        confluent-hub install --no-prompt debezium/debezium-connector-mysql:latest
+        confluent-hub install --no-prompt confluentinc/kafka-connect-datagen:0.4.0
+        /etc/confluent/docker/run
 
   ksqldb-server:
     image: confluentinc/cp-ksqldb-server:6.1.1
