@@ -23,7 +23,7 @@ This replicates as well as possible real deployment configurations, where you ha
   - Kafka Topics UI: 0.9.4
   - Kafka Connect: Confluent 5.5.1
   - Kafka Connect UI: 0.9.7
-  - ksqlDB Server: Confluent 5.5.1
+  - ksqlDB Server: Confluent 6.1.1
   - Zoonavigator: 0.8.0
 
 
@@ -52,7 +52,7 @@ This configuration fits most development requirements.
 
  - Zookeeper will be available at `$DOCKER_HOST_IP:2181`
  - Kafka will be available at `$DOCKER_HOST_IP:9092`
-
+ - (experimental) JMX port at `$DOCKER_HOST_IP:9999`
 
 Run with:
 ```
@@ -80,6 +80,7 @@ If you want to have three zookeeper nodes and experiment with zookeeper fault-to
 
 - Zookeeper will be available at `$DOCKER_HOST_IP:2181,$DOCKER_HOST_IP:2182,$DOCKER_HOST_IP:2183`
 - Kafka will be available at `$DOCKER_HOST_IP:9092`
+- (experimental) JMX port at `$DOCKER_HOST_IP:9999`
 
 Run with:
 ```
@@ -100,6 +101,7 @@ Run with:
 docker-compose -f zk-multiple-kafka-multiple.yml up
 docker-compose -f zk-multiple-kafka-multiple.yml down
 ```
+
 ## Full stack (no UI)
 
 For this, we recommend using [Conduktor](https://conduktor.io) as your tool to bring a unified UI to all these components
@@ -111,7 +113,7 @@ For this, we recommend using [Conduktor](https://conduktor.io) as your tool to b
  - Kafka Connect: `$DOCKER_HOST_IP:8083`
  - KSQL Server: `$DOCKER_HOST_IP:8088`
  - Zoonavigator Web: `$DOCKER_HOST_IP:8004`
-
+- (experimental) JMX port at `$DOCKER_HOST_IP:9999`
 
  Run with:
  ```
@@ -133,7 +135,7 @@ Note: the UI may be outdated or not maintained. See above for Full Stack No UI i
  - Kafka Connect UI: `$DOCKER_HOST_IP:8003`
  - KSQL Server: `$DOCKER_HOST_IP:8088`
  - Zoonavigator Web: `$DOCKER_HOST_IP:8004`
-
+- (experimental) JMX port at `$DOCKER_HOST_IP:9999`
 
  Run with:
  ```

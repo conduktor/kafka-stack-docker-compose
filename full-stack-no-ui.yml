@@ -21,6 +21,7 @@ services:
     hostname: kafka1
     ports:
       - "9092:9092"
+      - "9999:9999"
     environment:
       KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka1:19092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
@@ -31,6 +32,8 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_JMX_PORT: 9999
+      KAFKA_JMX_HOSTNAME: ${DOCKER_HOST_IP:-127.0.0.1}
     volumes:
       - ./full-stack/kafka1/data:/var/lib/kafka/data
     depends_on:
@@ -99,7 +102,7 @@ services:
       - kafka-rest-proxy
 
   ksqldb-server:
-    image: confluentinc/cp-ksqldb-server:5.5.1
+    image: confluentinc/cp-ksqldb-server:6.1.1
     hostname: ksqldb-server
     ports:
       - "8088:8088"
