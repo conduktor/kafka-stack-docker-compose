@@ -15,7 +15,7 @@ This replicates as well as possible real deployment configurations, where you ha
 
 ## Stack version
 
-  - Zookeeper version: 3.4.14
+  - Zookeeper version: 3.5.9
   - Kafka version: 2.8.0 (Confluent 6.2.1)
   - Kafka Schema Registry: Confluent 6.2.1
   - Kafka Rest Proxy: Confluent 6.2.1
@@ -129,7 +129,7 @@ A: Add the following line to your docker-compose environment variables: `KAFKA_L
 
 **Q: How do I delete data to start fresh?**
 
-A: Your data is persisted from within the docker compose folder, so if you want for example to reset the data in the full-stack docker compose, first do a `docker-compose -f full-stack.yml down`, then remove the directory `full-stack`, for example by doing `rm -r -f full-stack`.
+A: Your data is persisted from within the docker compose folder, so if you want for example to reset the data in the full-stack docker compose, do a `docker-compose -f full-stack.yml down`.
 
 **Q: Can I change the zookeeper ports?**
 
