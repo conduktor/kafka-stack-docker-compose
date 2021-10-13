@@ -25,9 +25,9 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_SERVERS: zoo1:2888:3888
-    volumes:
-      - ./zk-single-kafka-single/zoo1/data:/var/lib/zookeeper/data
-      - ./zk-single-kafka-single/zoo1/datalog:/var/lib/zookeeper/log
+    # volumes:
+    #   - ./zk-single-kafka-single/zoo1/data:/var/lib/zookeeper/data
+    #   - ./zk-single-kafka-single/zoo1/datalog:/var/lib/zookeeper/log
 
   kafka1:
     image: confluentinc/cp-kafka:6.2.1
@@ -48,7 +48,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_JMX_PORT: 9999
       KAFKA_JMX_HOSTNAME: ${DOCKER_HOST_IP:-127.0.0.1}
-    volumes:
-      - ./zk-single-kafka-single/kafka1/data:/var/lib/kafka/data
+    # volumes:
+    #   - ./zk-single-kafka-single/kafka1/data:/var/lib/kafka/data
     depends_on:
       - zoo1
