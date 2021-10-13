@@ -44,6 +44,10 @@ Please export your environment before starting the stack:
 export DOCKER_HOST_IP=192.168.99.100
 ```
 
+## Mac M1 issues
+
+Currently, the Docker Images are not working with M1 Mac. This is because they haven't been built by Confluent for that platform. See (confluentinc/common-docker/#117)[https://github.com/confluentinc/common-docker/issues/117] for more details
+
 ## Single Zookeeper / Single Kafka
 
 This configuration fits most development requirements.
