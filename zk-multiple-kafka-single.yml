@@ -2,7 +2,7 @@ version: '2.1'
 
 services:
   zoo1:
-    image: zookeeper:3.4.9
+    image: zookeeper:3.4.14
     hostname: zoo1
     ports:
       - "2181:2181"
@@ -15,7 +15,7 @@ services:
       - ./zk-multiple-kafka-single/zoo1/datalog:/datalog
 
   zoo2:
-    image: zookeeper:3.4.9
+    image: zookeeper:3.4.14
     hostname: zoo2
     ports:
       - "2182:2182"
@@ -28,7 +28,7 @@ services:
       - ./zk-multiple-kafka-single/zoo2/datalog:/datalog
 
   zoo3:
-    image: zookeeper:3.4.9
+    image: zookeeper:3.4.14
     hostname: zoo3
     ports:
       - "2183:2183"
@@ -42,7 +42,7 @@ services:
 
 
   kafka1:
-    image: confluentinc/cp-kafka:5.5.1
+    image: confluentinc/cp-kafka:6.2.1
     hostname: kafka1
     ports:
       - "9092:9092"

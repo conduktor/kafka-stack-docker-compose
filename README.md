@@ -175,7 +175,7 @@ A: yes. Say you want to change `zoo1` port to `12181` (only relevant lines are s
 A: yes. Say you want to change `kafka1` port to `12345` (only relevant lines are shown). Note only `LISTENER_DOCKER_EXTERNAL` changes:
 ```
   kafka1:
-    image: confluentinc/cp-kafka:5.5.1
+    image: confluentinc/cp-kafka:6.2.1
     hostname: kafka1
     ports:
       - "12345:12345"
@@ -189,7 +189,7 @@ A: yes. This is for testing only!!! Reduce the KAFKA_LOG_SEGMENT_BYTES to 16MB a
 
 ```
   kafka1:
-    image: confluentinc/cp-kafka:5.5.1
+    image: confluentinc/cp-kafka:6.2.1
     ...
     environment:
       ...
@@ -205,7 +205,7 @@ For example, if the IP of your machine is `50.10.2.3`, follow the sample mapping
 
 ```
   kafka1:
-    image: confluentinc/cp-kafka:5.5.1
+    image: confluentinc/cp-kafka:6.2.1
     ...
     environment:
       ...
