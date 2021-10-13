@@ -34,5 +34,9 @@ services:
       KAFKA_JMX_HOSTNAME: ${DOCKER_HOST_IP:-127.0.0.1}
     volumes:
       - ./zk-single-kafka-single/kafka1/data:/var/lib/kafka/data
+      - ./ensure:/etc/confluent/docker/ensure --user 1000
     depends_on:
       - zoo1
+    # command: sed -i -e '/dub/ s/^#*/#/' /etc/confluent/docker/ensure && /etc/confluent/docker/run
+    # command: awk '{sub(/dub/,"#dub")}1' /etc/confluent/docker/ensure > tmp && mv tmp /etc/confluent/docker/ensure && /etc/confluent/docker/run
+    # command: echo "hello" && grep -v "dub" /etc/confluent/docker/ensure > temp ; mv temp /etc/confluent/docker/ensure ; /etc/confluent/docker/run
