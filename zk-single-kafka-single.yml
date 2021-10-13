@@ -32,3 +32,5 @@ services:
       KAFKA_JMX_HOSTNAME: ${DOCKER_HOST_IP:-127.0.0.1}
     depends_on:
       - zoo1
+    volumes:
+      - "./zk-single-kafka-single/kafka1/data:/var/lib/kafka/data:rw"
