@@ -15,6 +15,7 @@ services:
   kafka1:
     image: confluentinc/cp-kafka:6.2.1
     hostname: kafka1
+    user: "appuser:appuser"
     ports:
       - "9092:9092"
       - "9999:9999"
