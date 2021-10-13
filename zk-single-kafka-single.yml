@@ -23,10 +23,10 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_SERVER_ID: 1
-      ZOOKEEPER_SERVERS: server.1=zoo1:2888:3888
+      ZOOKEEPER_SERVERS: zoo1:2888:3888
     volumes:
-      - ./zk-single-kafka-single/zoo1/data:/data --user 1000
-      - ./zk-single-kafka-single/zoo1/datalog:/datalog --user 1000
+      - ./zk-single-kafka-single/zoo1/data:/var/lib/zookeeper/data
+      - ./zk-single-kafka-single/zoo1/datalog:/var/lib/zookeeper/log
 
   kafka1:
     image: confluentinc/cp-kafka:6.2.1
