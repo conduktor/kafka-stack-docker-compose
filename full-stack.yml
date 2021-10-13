@@ -2,22 +2,18 @@ version: '2.1'
 
 services:
   zoo1:
-    image: zookeeper:3.4.9
-    restart: unless-stopped
+    image: confluentinc/cp-zookeeper:6.2.1
     hostname: zoo1
+    container_name: zoo1
     ports:
       - "2181:2181"
     environment:
-      ZOO_MY_ID: 1
-      ZOO_PORT: 2181
-      ZOO_SERVERS: server.1=zoo1:2888:3888
-    volumes:
-      - ./full-stack/zoo1/data:/data
-      - ./full-stack/zoo1/datalog:/datalog
-
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_SERVERS: zoo1:2888:3888
 
   kafka1:
-    image: confluentinc/cp-kafka:5.5.1
+    image: confluentinc/cp-kafka:6.2.1
     hostname: kafka1
     ports:
       - "9092:9092"
@@ -34,13 +30,11 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_JMX_PORT: 9999
       KAFKA_JMX_HOSTNAME: ${DOCKER_HOST_IP:-127.0.0.1}
-    volumes:
-      - ./full-stack/kafka1/data:/var/lib/kafka/data
     depends_on:
       - zoo1
 
   kafka-schema-registry:
-    image: confluentinc/cp-schema-registry:5.5.1
+    image: confluentinc/cp-schema-registry:6.2.1
     hostname: kafka-schema-registry
     ports:
       - "8081:8081"
@@ -52,19 +46,9 @@ services:
       - zoo1
       - kafka1
 
-  schema-registry-ui:
-    image: landoop/schema-registry-ui:0.9.5
-    hostname: kafka-schema-registry-ui
-    ports:
-      - "8001:8000"
-    environment:
-      SCHEMAREGISTRY_URL: http://kafka-schema-registry:8081/
-      PROXY: "true"
-    depends_on:
-      - kafka-schema-registry
-
+  
   kafka-rest-proxy:
-    image: confluentinc/cp-kafka-rest:5.5.1
+    image: confluentinc/cp-kafka-rest:6.2.1
     hostname: kafka-rest-proxy
     ports:
       - "8082:8082"
@@ -79,22 +63,9 @@ services:
       - kafka1
       - kafka-schema-registry
 
-  kafka-topics-ui:
-    image: landoop/kafka-topics-ui:0.9.4
-    hostname: kafka-topics-ui
-    ports:
-      - "8000:8000"
-    environment:
-      KAFKA_REST_PROXY_URL: "http://kafka-rest-proxy:8082/"
-      PROXY: "true"
-    depends_on:
-      - zoo1
-      - kafka1
-      - kafka-schema-registry
-      - kafka-rest-proxy
-
+  
   kafka-connect:
-    image: confluentinc/cp-kafka-connect:5.5.1
+    image: confluentinc/cp-kafka-connect:6.2.1
     hostname: kafka-connect
     ports:
       - "8083:8083"
@@ -133,19 +104,9 @@ services:
         confluent-hub install --no-prompt confluentinc/kafka-connect-datagen:0.4.0
         /etc/confluent/docker/run
 
-  kafka-connect-ui:
-    image: landoop/kafka-connect-ui:0.9.7
-    hostname: kafka-connect-ui
-    ports:
-      - "8003:8000"
-    environment:
-      CONNECT_URL: "http://kafka-connect:8083/"
-      PROXY: "true"
-    depends_on:
-      - kafka-connect
-
+  
   ksqldb-server:
-    image: confluentinc/cp-ksqldb-server:6.1.1
+    image: confluentinc/cp-ksqldb-server:6.2.1
     hostname: ksqldb-server
     ports:
       - "8088:8088"

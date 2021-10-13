@@ -2,20 +2,19 @@ version: '2.1'
 
 services:
   zoo1:
-    image: zookeeper:3.4.9
+    image: confluentinc/cp-zookeeper:6.2.1
     hostname: zoo1
+    container_name: zoo1
     ports:
       - "2181:2181"
     environment:
-      ZOO_MY_ID: 1
-      ZOO_PORT: 2181
-      ZOO_SERVERS: server.1=zoo1:2888:3888
-    volumes:
-      - ./zk-single-kafka-multiple/zoo1/data:/data
-      - ./zk-single-kafka-multiple/zoo1/datalog:/datalog
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_SERVERS: zoo1:2888:3888
+
 
   kafka1:
-    image: confluentinc/cp-kafka:5.5.1
+    image: confluentinc/cp-kafka:6.2.1
     hostname: kafka1
     ports:
       - "9092:9092"
@@ -26,13 +25,11 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
       KAFKA_BROKER_ID: 1
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
-    volumes:
-      - ./zk-single-kafka-multiple/kafka1/data:/var/lib/kafka/data
     depends_on:
       - zoo1
 
   kafka2:
-    image: confluentinc/cp-kafka:5.5.1
+    image: confluentinc/cp-kafka:6.2.1
     hostname: kafka2
     ports:
       - "9093:9093"
@@ -43,14 +40,12 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
       KAFKA_BROKER_ID: 2
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
-    volumes:
-      - ./zk-single-kafka-multiple/kafka2/data:/var/lib/kafka/data
     depends_on:
       - zoo1
 
 
   kafka3:
-    image: confluentinc/cp-kafka:5.5.1
+    image: confluentinc/cp-kafka:6.2.1
     hostname: kafka3
     ports:
       - "9094:9094"
@@ -61,7 +56,5 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
       KAFKA_BROKER_ID: 3
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
-    volumes:
-      - ./zk-single-kafka-multiple/kafka3/data:/var/lib/kafka/data
     depends_on:
       - zoo1
