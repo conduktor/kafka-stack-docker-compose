@@ -35,12 +35,12 @@ services:
       KAFKA_JMX_PORT: 9999
       KAFKA_JMX_HOSTNAME: ${DOCKER_HOST_IP:-127.0.0.1}
     volumes:
-      - ./full-stack/kafka1/data:/var/lib/kafka/data
+      - ./full-stack/kafka1/data:/var/lib/kafka/data --user 1000
     depends_on:
       - zoo1
 
   kafka-schema-registry:
-    image: confluentinc/cp-schema-registry:5.5.1
+    image: confluentinc/cp-schema-registry:6.2.1
     hostname: kafka-schema-registry
     ports:
       - "8081:8081"
@@ -53,7 +53,7 @@ services:
       - kafka1
 
   kafka-rest-proxy:
-    image: confluentinc/cp-kafka-rest:5.5.1
+    image: confluentinc/cp-kafka-rest:6.2.1
     hostname: kafka-rest-proxy
     ports:
       - "8082:8082"
@@ -69,7 +69,7 @@ services:
       - kafka-schema-registry
 
   kafka-connect:
-    image: confluentinc/cp-kafka-connect:5.5.1
+    image: confluentinc/cp-kafka-connect:6.2.1
     hostname: kafka-connect
     ports:
       - "8083:8083"

@@ -54,7 +54,7 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
     volumes:
-      - ./zk-multiple-kafka-multiple-schema-registry/kafka1/data:/var/lib/kafka/data
+      - ./zk-multiple-kafka-multiple-schema-registry/kafka1/data:/var/lib/kafka/data --user 1000
     depends_on:
       - zoo1
       - zoo2
@@ -73,7 +73,7 @@ services:
       KAFKA_BROKER_ID: 2
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
     volumes:
-      - ./zk-multiple-kafka-multiple-schema-registry/kafka2/data:/var/lib/kafka/data
+      - ./zk-multiple-kafka-multiple-schema-registry/kafka2/data:/var/lib/kafka/data --user 1000
     depends_on:
       - zoo1
       - zoo2
@@ -92,14 +92,14 @@ services:
       KAFKA_BROKER_ID: 3
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
     volumes:
-      - ./zk-multiple-kafka-multiple-schema-registry/kafka3/data:/var/lib/kafka/data
+      - ./zk-multiple-kafka-multiple-schema-registry/kafka3/data:/var/lib/kafka/data --user 1000
     depends_on:
       - zoo1
       - zoo2
       - zoo3
 
   kafka-schema-registry:
-    image: confluentinc/cp-schema-registry:5.5.1
+    image: confluentinc/cp-schema-registry:6.2.1
     hostname: kafka-schema-registry
     depends_on:
       - zoo1

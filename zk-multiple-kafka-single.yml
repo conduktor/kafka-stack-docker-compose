@@ -60,7 +60,7 @@ services:
       KAFKA_JMX_PORT: 9999
       KAFKA_JMX_HOSTNAME: ${DOCKER_HOST_IP:-127.0.0.1}
     volumes:
-      - ./zk-multiple-kafka-single/kafka1/data:/var/lib/kafka/data
+      - ./zk-multiple-kafka-single/kafka1/data:/var/lib/kafka/data --user 1000
     depends_on:
       - zoo1
       - zoo2
