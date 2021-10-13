@@ -15,17 +15,15 @@ This replicates as well as possible real deployment configurations, where you ha
 
 ## Stack version
 
-  - Zookeeper version: 3.4.9
-  - Kafka version: 2.5.0 (Confluent 5.5.1)
-  - Kafka Schema Registry: Confluent 5.5.1
-  - Kafka Schema Registry UI: 0.9.5
-  - Kafka Rest Proxy: Confluent 5.5.1
-  - Kafka Topics UI: 0.9.4
-  - Kafka Connect: Confluent 5.5.1
-  - Kafka Connect UI: 0.9.7
-  - ksqlDB Server: Confluent 6.1.1
+  - Zookeeper version: 3.4.14
+  - Kafka version: 2.8.0 (Confluent 6.2.1)
+  - Kafka Schema Registry: Confluent 6.2.1
+  - Kafka Rest Proxy: Confluent 6.2.1
+  - Kafka Connect: Confluent 6.2.1
+  - ksqlDB Server: Confluent 6.2.1
   - Zoonavigator: 0.8.0
 
+For a UI tool to access your local Kafka cluster, use the free version of (Conduktor)[https://www.conduktor.io/download]
 
 # Requirements
 
@@ -102,7 +100,7 @@ docker-compose -f zk-multiple-kafka-multiple.yml up
 docker-compose -f zk-multiple-kafka-multiple.yml down
 ```
 
-## Full stack (no UI)
+## Full stack
 
 For this, we recommend using [Conduktor](https://conduktor.io) as your tool to bring a unified UI to all these components
 
@@ -111,28 +109,6 @@ For this, we recommend using [Conduktor](https://conduktor.io) as your tool to b
  - Kafka Schema Registry: `$DOCKER_HOST_IP:8081`
  - Kafka Rest Proxy: `$DOCKER_HOST_IP:8082`
  - Kafka Connect: `$DOCKER_HOST_IP:8083`
- - KSQL Server: `$DOCKER_HOST_IP:8088`
- - Zoonavigator Web: `$DOCKER_HOST_IP:8004`
-- (experimental) JMX port at `$DOCKER_HOST_IP:9999`
-
- Run with:
- ```
- docker-compose -f full-stack-no-ui.yml up
- docker-compose -f full-stack-no-ui.yml down
- ```
-
-## Full stack
-
-Note: the UI may be outdated or not maintained. See above for Full Stack No UI in combination with [Conduktor](https://conduktor.io)
-
- - Single Zookeeper: `$DOCKER_HOST_IP:2181`
- - Single Kafka: `$DOCKER_HOST_IP:9092`
- - Kafka Schema Registry: `$DOCKER_HOST_IP:8081`
- - Kafka Schema Registry UI: `$DOCKER_HOST_IP:8001`
- - Kafka Rest Proxy: `$DOCKER_HOST_IP:8082`
- - Kafka Topics UI: `$DOCKER_HOST_IP:8000`
- - Kafka Connect: `$DOCKER_HOST_IP:8083`
- - Kafka Connect UI: `$DOCKER_HOST_IP:8003`
  - KSQL Server: `$DOCKER_HOST_IP:8088`
  - Zoonavigator Web: `$DOCKER_HOST_IP:8004`
 - (experimental) JMX port at `$DOCKER_HOST_IP:9999`
