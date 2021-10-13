@@ -18,6 +18,7 @@ services:
   zoo1:
     image: confluentinc/cp-zookeeper:6.2.1
     hostname: zoo1
+    container_name: zoo1
     ports:
       - "2181:2181"
     environment:
