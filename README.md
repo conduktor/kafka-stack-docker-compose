@@ -44,6 +44,10 @@ Please export your environment before starting the stack:
 export DOCKER_HOST_IP=192.168.99.100
 ```
 
+## Mac M1 issues
+
+Currently, the Docker Images are not working with M1 Mac. This is because they haven't been built by Confluent for that platform. See (confluentinc/common-docker/#117)[https://github.com/confluentinc/common-docker/issues/117] for more details
+
 ## Single Zookeeper / Single Kafka
 
 This configuration fits most development requirements.
@@ -187,3 +191,9 @@ For example, if the IP of your machine is `50.10.2.3`, follow the sample mapping
       ...
       KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka2:19093,LISTENER_DOCKER_EXTERNAL://50.10.2.3:9093
 ```
+
+**Q: How do I add connectors to kafka connect?**
+
+Create a `connectors` directory and place your connectors there (usually in a subdirectory) `connectors/example/my.jar`
+
+The directory is automatically mounted by the `kafka-connect` Docker container
