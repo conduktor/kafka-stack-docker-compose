@@ -197,3 +197,17 @@ For example, if the IP of your machine is `50.10.2.3`, follow the sample mapping
 Create a `connectors` directory and place your connectors there (usually in a subdirectory) `connectors/example/my.jar`
 
 The directory is automatically mounted by the `kafka-connect` Docker container
+
+OR edit the bash command which pulls connectors at runtime
+
+```
+confluent-hub install --no-prompt debezium/debezium-connector-mysql:latest
+        confluent-hub install 
+```
+
+**Q: How to disable Confluent metrics?**
+
+Add this environment variable
+```
+KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE=false
+```
