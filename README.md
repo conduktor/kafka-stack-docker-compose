@@ -191,3 +191,9 @@ For example, if the IP of your machine is `50.10.2.3`, follow the sample mapping
       ...
       KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka2:19093,LISTENER_DOCKER_EXTERNAL://50.10.2.3:9093
 ```
+
+**Q: How do I add connectors to kafka connect?**
+
+Create a `connectors` directory and place your connectors there (usually in a subdirectory) `connectors/example/my.jar`
+
+The directory is automatically mounted by the `kafka-connect` Docker container
