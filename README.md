@@ -23,7 +23,7 @@ This replicates as well as possible real deployment configurations, where you ha
   - ksqlDB Server: Confluent 6.2.1
   - Zoonavigator: 0.8.0
 
-For a UI tool to access your local Kafka cluster, use the free version of (Conduktor)[https://www.conduktor.io/download]
+For a UI tool to access your local Kafka cluster, use the free version of [Conduktor](https://www.conduktor.io/download)
 
 # Requirements
 
@@ -46,7 +46,7 @@ export DOCKER_HOST_IP=192.168.99.100
 
 ## Mac M1 issues
 
-Currently, the Docker Images are not working with M1 Mac. This is because they haven't been built by Confluent for that platform. See (confluentinc/common-docker/#117)[https://github.com/confluentinc/common-docker/issues/117] for more details
+Currently, the Docker Images are not working with M1 Mac. This is because they haven't been built by Confluent for that platform. See [confluentinc/common-docker/#117](https://github.com/confluentinc/common-docker/issues/117) for more details
 
 ## Single Zookeeper / Single Kafka
 
@@ -106,7 +106,7 @@ docker-compose -f zk-multiple-kafka-multiple.yml down
 
 ## Full stack
 
-For this, we recommend using [Conduktor](https://conduktor.io) as your tool to bring a unified UI to all these components
+Need a UI? We recommend using [Conduktor](https://conduktor.io) as your tool to bring a unified UI to all these components
 
  - Single Zookeeper: `$DOCKER_HOST_IP:2181`
  - Single Kafka: `$DOCKER_HOST_IP:9092`
