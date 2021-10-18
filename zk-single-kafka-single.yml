@@ -1,4 +1,8 @@
-version: '2.1'
+version: '3.8'
+volumes:
+  zksingle-ksingle_kafka1-data:
+  zksingle-ksingle_zoo1-data:
+  zksingle-ksingle_zoo1-log:
 
 services:
   zoo1:
@@ -11,6 +15,13 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_SERVERS: zoo1:2888:3888
+    volumes:
+      - type: volume
+        source: zksingle-ksingle_zoo1-data
+        target: /data
+      - type: volume
+        source: zksingle-ksingle_zoo1-log
+        target: /datalog
 
   kafka1:
     image: confluentinc/cp-kafka:6.2.1
@@ -31,5 +42,9 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_JMX_PORT: 9999
       KAFKA_JMX_HOSTNAME: ${DOCKER_HOST_IP:-127.0.0.1}
+    volumes:
+      - type: volume
+        source: zksingle-ksingle_kafka1-data
+        target: /var/lib/kafka/data
     depends_on:
       - zoo1
