@@ -42,7 +42,7 @@ services:
         source: zkmultiple-ksingle_zoo2-data
         target: /data
       - type: volume
-        source: zkmultiple-kmultiple_zoo2-log
+        source: zkmultiple-ksingle_zoo2-log
         target: /datalog
 
   zoo3:
