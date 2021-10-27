@@ -1,4 +1,12 @@
-version: '2.1'
+version: '3.8'
+volumes:
+  zkmultiple-ksingle_kafka1-data:
+  zkmultiple-ksingle_zoo1-data:
+  zkmultiple-ksingle_zoo2-data:
+  zkmultiple-ksingle_zoo3-data:
+  zkmultiple-ksingle_zoo1-log:
+  zkmultiple-ksingle_zoo2-log:
+  zkmultiple-ksingle_zoo3-log:
 
 services:
   zoo1:
@@ -11,6 +19,13 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_SERVERS: zoo1:2888:3888;zoo2:2888:3888;zoo3:2888:3888
+    volumes:
+      - type: volume
+        source: zkmultiple-ksingle_zoo1-data
+        target: /data
+      - type: volume
+        source: zkmultiple-ksingle_zoo1-log
+        target: /datalog
 
   zoo2:
     image: confluentinc/cp-zookeeper:6.2.1
@@ -22,6 +37,13 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2182
       ZOOKEEPER_SERVER_ID: 2
       ZOOKEEPER_SERVERS: zoo1:2888:3888;zoo2:2888:3888;zoo3:2888:3888
+    volumes:
+      - type: volume
+        source: zkmultiple-ksingle_zoo2-data
+        target: /data
+      - type: volume
+        source: zkmultiple-ksingle_zoo2-log
+        target: /datalog
 
   zoo3:
     image: confluentinc/cp-zookeeper:6.2.1
@@ -33,6 +55,13 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2183
       ZOOKEEPER_SERVER_ID: 3
       ZOOKEEPER_SERVERS: zoo1:2888:3888;zoo2:2888:3888;zoo3:2888:3888
+    volumes:
+      - type: volume
+        source: zkmultiple-ksingle_zoo3-data
+        target: /data
+      - type: volume
+        source: zkmultiple-ksingle_zoo3-log
+        target: /datalog
 
 
   kafka1:
@@ -53,6 +82,10 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_JMX_PORT: 9999
       KAFKA_JMX_HOSTNAME: ${DOCKER_HOST_IP:-127.0.0.1}
+    volumes:
+      - type: volume
+        source: zkmultiple-ksingle_kafka1-data
+        target: /var/lib/kafka/data
     depends_on:
       - zoo1
       - zoo2
