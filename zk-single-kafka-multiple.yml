@@ -1,10 +1,4 @@
-version: '3.8'
-volumes:
-  sksingle-kmultiple_kafka1-data:
-  sksingle-kmultiple_kafka2-data:
-  sksingle-kmultiple_kafka3-data:
-  sksingle-kmultiple_zoo1-data:
-  sksingle-kmultiple_zoo1-log:
+version: '2.1'
 
 services:
   zoo1:
@@ -17,13 +11,6 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_SERVERS: zoo1:2888:3888
-    volumes:
-      - type: volume
-        source: sksingle-kmultiple_zoo1-data
-        target: /data
-      - type: volume
-        source: sksingle-kmultiple_zoo1-log
-        target: /datalog
 
 
   kafka1:
@@ -38,10 +25,6 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
       KAFKA_BROKER_ID: 1
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
-    volumes:
-      - type: volume
-        source: sksingle-kmultiple_kafka1-data
-        target: /var/lib/kafka/data
     depends_on:
       - zoo1
 
@@ -57,10 +40,6 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
       KAFKA_BROKER_ID: 2
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
-    volumes:
-      - type: volume
-        source: sksingle-kmultiple_kafka2-data
-        target: /var/lib/kafka/data
     depends_on:
       - zoo1
 
@@ -77,9 +56,5 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
       KAFKA_BROKER_ID: 3
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
-    volumes:
-      - type: volume
-        source: sksingle-kmultiple_kafka3-data
-        target: /var/lib/kafka/data
     depends_on:
       - zoo1

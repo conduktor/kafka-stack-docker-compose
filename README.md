@@ -62,12 +62,6 @@ docker-compose -f zk-single-kafka-single.yml up
 docker-compose -f zk-single-kafka-single.yml down
 ```
 
-Clean state (zookeeper & kafka) with : 
-```
-docker-compose -f zk-single-kafka-single.yml down
-docker-compose -f zk-single-kafka-single.yml rm
-```
-
 ## Single Zookeeper / Multiple Kafka
 
 If you want to have three brokers and experiment with kafka replication / fault-tolerance.
@@ -80,12 +74,6 @@ Run with:
 ```
 docker-compose -f zk-single-kafka-multiple.yml up
 docker-compose -f zk-single-kafka-multiple.yml down
-```
-
-Clean state (zookeeper & kafka) with :
-```
-docker-compose -f zk-single-kafka-multiple.yml down
-docker-compose -f zk-single-kafka-multiple.yml rm
 ```
 
 ## Multiple Zookeeper / Single Kafka
@@ -102,11 +90,6 @@ docker-compose -f zk-multiple-kafka-single.yml up
 docker-compose -f zk-multiple-kafka-single.yml down
 ```
 
-Clean state (zookeeper & kafka) with :
-```
-docker-compose -f zk-multiple-kafka-single.yml down
-docker-compose -f zk-multiple-kafka-single.yml rm
-```
 
 ## Multiple Zookeeper / Multiple Kafka
 
@@ -119,12 +102,6 @@ Run with:
 ```
 docker-compose -f zk-multiple-kafka-multiple.yml up
 docker-compose -f zk-multiple-kafka-multiple.yml down
-```
-
-Clean state (zookeeper & kafka) with :
-```
-docker-compose -f zk-multiple-kafka-multiple.yml down
-docker-compose -f zk-multiple-kafka-multiple.yml rm
 ```
 
 ## Full stack
@@ -146,12 +123,6 @@ Need a UI? We recommend using [Conduktor](https://conduktor.io) as your tool to 
  docker-compose -f full-stack.yml down
  ```
 
-Clean state (zookeeper & kafka) with :
-```
-docker-compose -f full-stack.yml down
-docker-compose -f full-stack.yml rm
-```
-
 # FAQ
 
 ## Kafka
@@ -162,7 +133,7 @@ A: Add the following line to your docker-compose environment variables: `KAFKA_L
 
 **Q: How do I delete data to start fresh?**
 
-A: Your data is persisted from within docker volumes , so if you want for example to reset the data in the full-stack docker compose, do a `docker-compose -f full-stack.yml rm`.
+A: Your data is persisted from within the docker compose folder, so if you want for example to reset the data in the full-stack docker compose, do a `docker-compose -f full-stack.yml down`.
 
 **Q: Can I change the zookeeper ports?**
 
