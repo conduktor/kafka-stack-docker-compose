@@ -4,6 +4,7 @@ services:
   zoo1:
     image: confluentinc/cp-zookeeper:6.2.1
     hostname: zoo1
+    container_name: zoo1
     ports:
       - "2181:2181"
     environment:
@@ -14,7 +15,7 @@ services:
   kafka1:
     image: confluentinc/cp-kafka:6.2.1
     hostname: kafka1
-    user: "appuser:appuser"
+    container_name: kafka1
     ports:
       - "9092:9092"
       - "9999:9999"
