@@ -1,0 +1,10 @@
+kafka:
+  brokers:
+    - kafka1:9092
+
+server:
+  listenPort: 8085
+  readTimeout: 30s
+  writeTimeout: 30s
+  idleTimeout: 30s
+  compressionLevel: 4
