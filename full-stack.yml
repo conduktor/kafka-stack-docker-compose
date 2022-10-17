@@ -30,7 +30,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
-      KAFKA_JMX_PORT: 9999
+      KAFKA_JMX_PORT: 9001
       KAFKA_JMX_HOSTNAME: ${DOCKER_HOST_IP:-127.0.0.1}
       KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.authorizer.AclAuthorizer
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
@@ -126,11 +126,28 @@ services:
       - zoo1
       - kafka1
 
-  zoonavigator:
-    image: elkozmon/zoonavigator:1.1.1
-    container_name: zoonavigator
+  conduktor-platform:
+    image: conduktor/conduktor-platform:1.0.2
     ports:
-      - "8004:8000"
+      - 8080:80
+    volumes:
+      - conduktor_data:/var/conduktor
+      - type: bind
+        source: "./platform-config.yaml"
+        target: /opt/conduktor/platform-config.yaml
+        read_only: true
+    depends_on:
+      - kafka1
+      - kafka-schema-registry
     environment:
-      HTTP_PORT: 8000
-      AUTO_CONNECT_CONNECTION_STRING: zoo1:2181
+      CDK_IN_CONF_FILE: /opt/conduktor/platform-config.yaml
+      KAFKA_BOOTSTRAP_SERVER: PLAINTEXT://kafka1:19092
+      SR_SERVER: "http://kafka-schema-registry:8081"
+      ORGANISATION_NAME: "default"
+      ADMIN_EMAIL: "admin@admin.io"
+      ADMIN_PSW: "admin"
+
+
+volumes:
+  conduktor_data: {}
+
