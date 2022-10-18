@@ -139,6 +139,7 @@ services:
     depends_on:
       - kafka1
       - kafka-schema-registry
+      - kafka-connect
     environment:
       CDK_IN_CONF_FILE: /opt/conduktor/platform-config.yaml
       KAFKA_BOOTSTRAP_SERVER: PLAINTEXT://kafka1:19092

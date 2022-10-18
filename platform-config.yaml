@@ -13,6 +13,9 @@ clusters:
       ignoreUntrustedCertificate: false
       properties:
     labels: {}
+    kafkaConnects:
+      - url: http://kafka-connect:8083
+        name: full stack kafka connect
 
 auth:
   demo-users:
