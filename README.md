@@ -15,6 +15,7 @@ This replicates as well as possible real deployment configurations, where you ha
 
 ## Stack version
 
+  - Conduktor Platform: 1.0.2
   - Zookeeper version: 3.6.3 (Confluent 7.2.1)
   - Kafka version: 3.2.0 (Confluent 7.2.1)
   - Kafka Schema Registry: Confluent 7.2.1
@@ -45,6 +46,29 @@ If you want to downgrade confluent platform version, there are two ways:
 
 1. Add `platform: linux/amd64`. It will work as docker is able to emulate AMD64 instructions.
 2. Previous versions have been [built](https://github.com/arm64-compat/confluent-platform) for ARM64 by the community. If you want to use it, just change the image in the corresponding yml. Since it is a not an official image, use it at your own risks.  
+
+## Full stack
+
+To ease you journey with kafka just connect to [localhost:8080](http://localhost:8080/)
+
+login: `login@admin.io`
+password: `admin`
+
+ - Conduktor-platform: `$DOCKER_HOST_IP:8080`
+ - Single Zookeeper: `$DOCKER_HOST_IP:2181`
+ - Single Kafka: `$DOCKER_HOST_IP:9092`
+ - Kafka Schema Registry: `$DOCKER_HOST_IP:8081`
+ - Kafka Rest Proxy: `$DOCKER_HOST_IP:8082`
+ - Kafka Connect: `$DOCKER_HOST_IP:8083`
+ - KSQL Server: `$DOCKER_HOST_IP:8088`
+- (experimental) JMX port at `$DOCKER_HOST_IP:9001`
+
+ Run with:
+ ```
+ docker-compose -f full-stack.yml up
+ docker-compose -f full-stack.yml down
+ ```
+
 
 ## Single Zookeeper / Single Kafka
 
@@ -101,25 +125,6 @@ Run with:
 docker-compose -f zk-multiple-kafka-multiple.yml up
 docker-compose -f zk-multiple-kafka-multiple.yml down
 ```
-
-## Full stack
-
-Need a UI? We recommend using [Conduktor](https://conduktor.io) as your tool to bring a unified UI to all these components
-
- - Single Zookeeper: `$DOCKER_HOST_IP:2181`
- - Single Kafka: `$DOCKER_HOST_IP:9092`
- - Kafka Schema Registry: `$DOCKER_HOST_IP:8081`
- - Kafka Rest Proxy: `$DOCKER_HOST_IP:8082`
- - Kafka Connect: `$DOCKER_HOST_IP:8083`
- - KSQL Server: `$DOCKER_HOST_IP:8088`
- - Zoonavigator Web: `$DOCKER_HOST_IP:8004`
-- (experimental) JMX port at `$DOCKER_HOST_IP:9999`
-
- Run with:
- ```
- docker-compose -f full-stack.yml up
- docker-compose -f full-stack.yml down
- ```
 
 # FAQ
 
