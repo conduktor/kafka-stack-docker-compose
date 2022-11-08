@@ -51,7 +51,7 @@ If you want to downgrade confluent platform version, there are two ways:
 
 To ease you journey with kafka just connect to [localhost:8080](http://localhost:8080/)
 
-login: `login@admin.io`
+login: `admin@admin.io`
 password: `admin`
 
  - Conduktor-platform: `$DOCKER_HOST_IP:8080`
