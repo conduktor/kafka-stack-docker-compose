@@ -15,13 +15,13 @@ This replicates as well as possible real deployment configurations, where you ha
 
 ## Stack version
 
-  - Conduktor Platform: 1.0.2
-  - Zookeeper version: 3.6.3 (Confluent 7.2.1)
-  - Kafka version: 3.2.0 (Confluent 7.2.1)
-  - Kafka Schema Registry: Confluent 7.2.1
-  - Kafka Rest Proxy: Confluent 7.2.1
-  - Kafka Connect: Confluent 7.2.1
-  - ksqlDB Server: Confluent 7.2.1
+  - Conduktor Platform: 1.3.0
+  - Zookeeper version: 3.6.3 (Confluent 7.3.0)
+  - Kafka version: 3.3.0 (Confluent 7.3.0)
+  - Kafka Schema Registry: Confluent 7.3.0
+  - Kafka Rest Proxy: Confluent 7.3.0
+  - Kafka Connect: Confluent 7.3.0
+  - ksqlDB Server: Confluent 7.3.0
   - Zoonavigator: 1.1.1
 
 For a UI tool to access your local Kafka cluster, use the free version of [Conduktor](https://www.conduktor.io/download)
@@ -68,7 +68,7 @@ password: `admin`
  docker-compose -f full-stack.yml up
  docker-compose -f full-stack.yml down
  ```
-
+** Note: if you find that you can not connect to [localhost:8080](http://localhost:8080/) please run `docker-compose -f full-stack.yml build` to rebuild the port mappings.
 
 ## Single Zookeeper / Single Kafka
 
