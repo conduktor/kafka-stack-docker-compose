@@ -127,27 +127,26 @@ services:
       - kafka1
 
   conduktor-platform:
-    image: conduktor/conduktor-platform:1.3.1
+    image: conduktor/conduktor-platform:1.5.1
     ports:
       - 8080:8080
     volumes:
       - conduktor_data:/var/conduktor
-      - type: bind
-        source: "./platform-config.yaml"
-        target: /opt/conduktor/platform-config.yaml
-        read_only: true
     depends_on:
       - kafka1
       - kafka-schema-registry
       - kafka-connect
     environment:
-      CDK_IN_CONF_FILE: /opt/conduktor/platform-config.yaml
-      KAFKA_BOOTSTRAP_SERVER: PLAINTEXT://kafka1:19092
-      SR_SERVER: "http://kafka-schema-registry:8081"
-      ORGANISATION_NAME: "default"
-      ADMIN_EMAIL: "admin@admin.io"
-      ADMIN_PSW: "admin"
-
+      CDK_ORGANIZATION_NAME: "default"
+      CDK_CLUSTERS_0_ID: "default"
+      CDK_CLUSTERS_0_NAME: "My Local Kafka Cluster"
+      CDK_CLUSTERS_0_COLOR: "#0013E7"
+      CDK_CLUSTERS_0_BOOTSTRAPSERVERS: PLAINTEXT://kafka1:19092
+      CDK_CLUSTERS_0_SCHEMAREGISTRY_URL: "http://kafka-schema-registry:8081"
+      CDK_CLUSTERS_0_KAFKACONNECTS_0_URL: "http://kafka-connect:8083"
+      CDK_CLUSTERS_0_KAFKACONNECTS_0_NAME: "full stack kafka connect"
+      CDK_AUTH_DEMO-USERS_0_EMAIL: "admin@admin.io"
+      CDK_AUTH_DEMO-USERS_0_PASSWORD: "admin"
 
 volumes:
   conduktor_data: {}
