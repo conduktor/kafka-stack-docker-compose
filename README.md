@@ -15,7 +15,7 @@ This replicates as well as possible real deployment configurations, where you ha
 
 ## Stack version
 
-  - Conduktor Platform: 1.3.0
+  - Conduktor Platform: latest
   - Zookeeper version: 3.6.3 (Confluent 7.3.0)
   - Kafka version: 3.3.0 (Confluent 7.3.0)
   - Kafka Schema Registry: Confluent 7.3.0
