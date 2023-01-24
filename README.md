@@ -24,7 +24,7 @@ This replicates as well as possible real deployment configurations, where you ha
   - ksqlDB Server: Confluent 7.3.0
   - Zoonavigator: 1.1.1
 
-For a UI tool to access your local Kafka cluster, use the free version of [Conduktor](https://www.conduktor.io/download)
+For a UI tool to access your local Kafka cluster, use the free version of [Conduktor](https://www.conduktor.io/get-started)
 
 # Requirements
 
