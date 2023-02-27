@@ -16,12 +16,12 @@ This replicates as well as possible real deployment configurations, where you ha
 ## Stack version
 
   - Conduktor Platform: latest
-  - Zookeeper version: 3.6.3 (Confluent 7.3.0)
-  - Kafka version: 3.3.0 (Confluent 7.3.0)
-  - Kafka Schema Registry: Confluent 7.3.0
-  - Kafka Rest Proxy: Confluent 7.3.0
-  - Kafka Connect: Confluent 7.3.0
-  - ksqlDB Server: Confluent 7.3.0
+  - Zookeeper version: 3.6.3 (Confluent 7.3.2)
+  - Kafka version: 3.3.0 (Confluent 7.3.2)
+  - Kafka Schema Registry: Confluent 7.3.2
+  - Kafka Rest Proxy: Confluent 7.3.2
+  - Kafka Connect: Confluent 7.3.2
+  - ksqlDB Server: Confluent 7.3.2
   - Zoonavigator: 1.1.1
 
 For a UI tool to access your local Kafka cluster, use the free version of [Conduktor](https://www.conduktor.io/get-started)
