@@ -94,6 +94,7 @@ If you want to have three brokers and experiment with kafka replication / fault-
 
 Run with:
 ```
+export DOCKER_HOST_IP="DOCKER HOST IP"
 docker-compose -f zk-single-kafka-multiple.yml up
 docker-compose -f zk-single-kafka-multiple.yml down
 ```
@@ -122,6 +123,7 @@ If you want to have three zookeeper nodes and three kafka brokers to experiment 
 
 Run with:
 ```
+export DOCKER_HOST_IP="DOCKER HOST IP"
 docker-compose -f zk-multiple-kafka-multiple.yml up
 docker-compose -f zk-multiple-kafka-multiple.yml down
 ```
