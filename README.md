@@ -9,7 +9,7 @@ Just connect against `localhost:9092`. If you are on Mac or Windows and want to 
 
 # kafka-stack-docker-compose
 
-This replicates as well as possible real deployment configurations, where you have your zookeeper servers and kafka servers actually all distinct from each other. This solves all the networking hurdles that comes with Docker and docker-compose, and is compatible cross platform.
+This replicates as well as possible real deployment configurations, where you have your zookeeper servers and kafka servers actually all distinct from each other. This solves all the networking hurdles that comes with Docker and docker compose, and is compatible cross platform.
 
 **UPDATE**: No /etc/hosts file changes are necessary anymore. Explanations at: https://rmoff.net/2018/08/02/kafka-listeners-explained/
 
@@ -65,10 +65,10 @@ password: `admin`
 
  Run with:
  ```
- docker-compose -f full-stack.yml up
- docker-compose -f full-stack.yml down
+ docker compose -f full-stack.yml up
+ docker compose -f full-stack.yml down
  ```
-** Note: if you find that you can not connect to [localhost:8080](http://localhost:8080/) please run `docker-compose -f full-stack.yml build` to rebuild the port mappings.
+** Note: if you find that you can not connect to [localhost:8080](http://localhost:8080/) please run `docker compose -f full-stack.yml build` to rebuild the port mappings.
 
 ## Single Zookeeper / Single Kafka
 
@@ -80,8 +80,8 @@ This configuration fits most development requirements.
 
 Run with:
 ```
-docker-compose -f zk-single-kafka-single.yml up
-docker-compose -f zk-single-kafka-single.yml down
+docker compose -f zk-single-kafka-single.yml up
+docker compose -f zk-single-kafka-single.yml down
 ```
 
 ## Single Zookeeper / Multiple Kafka
@@ -94,8 +94,8 @@ If you want to have three brokers and experiment with kafka replication / fault-
 
 Run with:
 ```
-docker-compose -f zk-single-kafka-multiple.yml up
-docker-compose -f zk-single-kafka-multiple.yml down
+docker compose -f zk-single-kafka-multiple.yml up
+docker compose -f zk-single-kafka-multiple.yml down
 ```
 
 ## Multiple Zookeeper / Single Kafka
@@ -108,8 +108,8 @@ If you want to have three zookeeper nodes and experiment with zookeeper fault-to
 
 Run with:
 ```
-docker-compose -f zk-multiple-kafka-single.yml up
-docker-compose -f zk-multiple-kafka-single.yml down
+docker compose -f zk-multiple-kafka-single.yml up
+docker compose -f zk-multiple-kafka-single.yml down
 ```
 
 
@@ -122,8 +122,8 @@ If you want to have three zookeeper nodes and three kafka brokers to experiment 
 
 Run with:
 ```
-docker-compose -f zk-multiple-kafka-multiple.yml up
-docker-compose -f zk-multiple-kafka-multiple.yml down
+docker compose -f zk-multiple-kafka-multiple.yml up
+docker compose -f zk-multiple-kafka-multiple.yml down
 ```
 
 # FAQ
@@ -132,11 +132,11 @@ docker-compose -f zk-multiple-kafka-multiple.yml down
 
 **Q: Kafka's log is too verbose, how can I reduce it?**
 
-A: Add the following line to your docker-compose environment variables: `KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"`. Full logging control can be accessed here: https://github.com/confluentinc/cp-docker-images/blob/master/debian/kafka/include/etc/confluent/docker/log4j.properties.template
+A: Add the following line to your docker compose environment variables: `KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"`. Full logging control can be accessed here: https://github.com/confluentinc/cp-docker-images/blob/master/debian/kafka/include/etc/confluent/docker/log4j.properties.template
 
 **Q: How do I delete data to start fresh?**
 
-A: Your data is persisted from within the docker compose folder, so if you want for example to reset the data in the full-stack docker compose, do a `docker-compose -f full-stack.yml down`.
+A: Your data is persisted from within the docker compose folder, so if you want for example to reset the data in the full-stack docker compose, do a `docker compose -f full-stack.yml down`.
 
 **Q: Can I change the zookeeper ports?**
 
