@@ -51,8 +51,9 @@ kafka_tests(){
 }
 
 # creating stack...
+docker compose -f $file down -v
 docker compose -f $file up -d
-sleep 10
+sleep 20
 # logging
 docker compose -f $file ps
 # tests
@@ -60,5 +61,5 @@ all_great $1 $2
 kafka_tests $1
 all_great $1 $2
 # teardown
-docker compose -f $file down
+docker compose -f $file down -v
 echo "Success!"
