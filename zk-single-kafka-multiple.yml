@@ -70,16 +70,3 @@ services:
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
     depends_on:
       - zoo1
-
-  postgresql:
-    extends:
-      service: postgresql
-      file: conduktor.yml 
-            
-  conduktor-platform:
-    extends:
-      service: conduktor-platform
-      file: conduktor.yml
-volumes:
-  pg_data: {}
-  conduktor_data: {}

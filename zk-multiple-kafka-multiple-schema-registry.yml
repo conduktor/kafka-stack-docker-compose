@@ -116,16 +116,3 @@ services:
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'PLAINTEXT://kafka1:19092,PLAINTEXT://kafka2:19093,PLAINTEXT://kafka3:19094'
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
 
-  postgresql:
-    extends:
-      service: postgresql
-      file: conduktor.yml 
-            
-  conduktor-platform:
-    extends:
-      service: conduktor-platform
-      file: conduktor.yml
-
-volumes:
-  pg_data: {}
-  conduktor_data: {}

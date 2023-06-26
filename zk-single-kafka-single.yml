@@ -37,18 +37,5 @@ services:
     depends_on:
       - zoo1
 
-  postgresql:
-    extends:
-      service: postgresql
-      file: conduktor.yml 
-            
-  conduktor-platform:
-    extends:
-      service: conduktor-platform
-      file: conduktor.yml
-  
-volumes:
-  pg_data: {}
-  conduktor_data: {}
 
 
