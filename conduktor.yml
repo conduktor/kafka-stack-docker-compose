@@ -17,8 +17,6 @@ services:
       - "8080:8080"
     volumes:
       - conduktor_data:/var/conduktor
-    depends_on:
-      - kafka1
     healthcheck:
       test: curl -f http://localhost:8080/platform/api/modules/health/live || exit 1
       interval: 10s
