@@ -53,7 +53,7 @@ kafka_tests(){
 # creating stack...
 docker compose -f $file down -v
 docker compose -f $file up -d
-sleep 20
+sleep 60
 # logging
 docker compose -f $file ps
 # tests
