@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:  
+  
+  postgresql:
+    image: postgres:14
+    hostname: postgresql
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: "conduktor-platform"
+      POSTGRES_USER: "conduktor"
+      POSTGRES_PASSWORD: "some_password"
+      POSTGRES_HOST_AUTH_METHOD: "scram-sha-256"
+
+  conduktor-platform:
+    image: conduktor/conduktor-platform:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - conduktor_data:/var/conduktor
+    environment:
+      CDK_ORGANIZATION_NAME: "demo"
+      CDK_ADMIN_EMAIL: "admin@admin.io"
+      CDK_ADMIN_PASSWORD: "admin"
+      CDK_DATABASE_URL: "postgresql://conduktor:some_password@postgresql:5432/conduktor-platform"
+      CDK_CLUSTERS_0_ID: "default"
+      CDK_CLUSTERS_0_NAME: "My Local Kafka Cluster"
+      CDK_CLUSTERS_0_COLOR: "#0013E7"
+      CDK_CLUSTERS_0_BOOTSTRAPSERVERS: "PLAINTEXT://kafka1:19092"
+      CDK_CLUSTERS_0_SCHEMAREGISTRY_URL: "http://kafka-schema-registry:8081"
+      CDK_CLUSTERS_0_KAFKACONNECTS_0_URL: "http://kafka-connect:8083"
+      CDK_CLUSTERS_0_KAFKACONNECTS_0_NAME: "full stack kafka connect"
+
+volumes:
+  pg_data: {}
+  conduktor_data: {}

@@ -14,7 +14,7 @@ f () {
     # ${BASH_LINENO[0]} contains the line number in the script of that command
     # exit the script or return to try again, etc.
     # creating stack...
-    docker-compose -f $file down
+    docker compose -f $file down
     exit $errcode  # or use some other value or do return instead
 }
 trap f ERR
@@ -22,12 +22,12 @@ trap f ERR
 all_great(){
     # for testing
     echo "Verifying Process"
-    running=`docker-compose -f $1 ps | grep Up | wc -l`
+    running=`docker compose -f $1 ps | grep Up | wc -l`
     if [ "$running" != "$2" ]; then
         # for logging
-        docker-compose -f $1 ps
+        docker compose -f $1 ps
         # debug
-        docker-compose -f $1 logs
+        docker compose -f $1 logs
         exit 1
     fi
 }
@@ -51,14 +51,15 @@ kafka_tests(){
 }
 
 # creating stack...
-docker-compose -f $file up -d
-sleep 10
+docker compose -f $file down -v
+docker compose -f $file up -d
+sleep 30
 # logging
-docker-compose -f $file ps
+docker compose -f $file ps
 # tests
 all_great $1 $2
 kafka_tests $1
 all_great $1 $2
 # teardown
-docker-compose -f $file down
+docker compose -f $file down -v
 echo "Success!"

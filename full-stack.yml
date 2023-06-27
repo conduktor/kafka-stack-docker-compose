@@ -126,28 +126,17 @@ services:
       - zoo1
       - kafka1
 
+  postgresql:
+    extends:
+      service: postgresql
+      file: conduktor.yml 
+            
   conduktor-platform:
-    image: conduktor/conduktor-platform:latest
-    ports:
-      - "8080:8080"
-    volumes:
-      - conduktor_data:/var/conduktor
-    depends_on:
-      - kafka1
-      - kafka-schema-registry
-      - kafka-connect
-    environment:
-      CDK_ORGANIZATION_NAME: "demo"
-      CDK_ADMIN_EMAIL: "admin@admin.io"
-      CDK_ADMIN_PASSWORD: "admin"
-      CDK_CLUSTERS_0_ID: "default"
-      CDK_CLUSTERS_0_NAME: "My Local Kafka Cluster"
-      CDK_CLUSTERS_0_COLOR: "#0013E7"
-      CDK_CLUSTERS_0_BOOTSTRAPSERVERS: "PLAINTEXT://kafka1:19092"
-      CDK_CLUSTERS_0_SCHEMAREGISTRY_URL: "http://kafka-schema-registry:8081"
-      CDK_CLUSTERS_0_KAFKACONNECTS_0_URL: "http://kafka-connect:8083"
-      CDK_CLUSTERS_0_KAFKACONNECTS_0_NAME: "full stack kafka connect"
+    extends:
+      service: conduktor-platform
+      file: conduktor.yml
 
 volumes:
+  pg_data: {}
   conduktor_data: {}
 
