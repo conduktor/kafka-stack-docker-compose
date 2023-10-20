@@ -126,6 +126,15 @@ services:
       - zoo1
       - kafka1
 
+  ksqldb-cli:
+    image: confluentinc/ksqldb-cli:0.29.0
+    container_name: ksqldb-cli
+    depends_on:
+      - kafka1
+      - ksqldb-server
+    entrypoint: /bin/sh
+    tty: true    
+
   postgresql:
     extends:
       service: postgresql
