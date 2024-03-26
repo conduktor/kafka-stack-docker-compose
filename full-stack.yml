@@ -133,7 +133,7 @@ services:
             
   conduktor-platform:
     extends:
-      service: conduktor-platform
+      service: conduktor-console
       file: conduktor.yml
 
 volumes:
