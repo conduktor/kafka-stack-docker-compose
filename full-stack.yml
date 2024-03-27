@@ -131,7 +131,7 @@ services:
       service: postgresql
       file: conduktor.yml 
             
-  conduktor-platform:
+  conduktor-console:
     extends:
       service: conduktor-console
       file: conduktor.yml
