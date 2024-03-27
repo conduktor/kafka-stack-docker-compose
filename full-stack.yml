@@ -127,13 +127,17 @@ services:
       - kafka1
 
   postgresql:
+    hostname: postgresql
+    container_name: postgresql
     extends:
       service: postgresql
       file: conduktor.yml 
             
-  conduktor-platform:
+  conduktor-console:
+    hostname: conduktor-console
+    container_name: conduktor-console
     extends:
-      service: conduktor-platform
+      service: conduktor-console
       file: conduktor.yml
 
 volumes:
