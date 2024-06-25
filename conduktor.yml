@@ -14,7 +14,7 @@ services:
       POSTGRES_HOST_AUTH_METHOD: "scram-sha-256"
 
   conduktor-console:
-    image: conduktor/conduktor-console:1.24.0
+    image: conduktor/conduktor-console:1.24.1
     ports:
       - "8080:8080"
     volumes:
