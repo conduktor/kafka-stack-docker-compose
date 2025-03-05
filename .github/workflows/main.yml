@@ -35,7 +35,6 @@ jobs:
       
 
       # Runs a set of commands using the runners shell
-      - uses: docker-practice/actions-setup-docker@master
       - name: run test single 2
         run: ./test.sh zk-single-kafka-single.yml 2
         
