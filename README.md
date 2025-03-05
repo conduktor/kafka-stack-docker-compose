@@ -155,7 +155,7 @@ A: yes. Say you want to change `kafka1` port to `12345` (only relevant lines are
 A: yes. This is for testing only!!! Reduce the KAFKA_LOG_SEGMENT_BYTES to 16MB and the KAFKA_LOG_RETENTION_BYTES to 128MB
 
 ```
-  Kafka1:
+  kafka1:
     image: confluentinc/cp-kafka:7.2.1
     ...
     environment:
