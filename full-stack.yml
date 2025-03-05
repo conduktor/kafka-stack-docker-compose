@@ -1,8 +1,6 @@
-version: '2.1'
-
 services:
   zoo1:
-    image: confluentinc/cp-zookeeper:7.3.2
+    image: confluentinc/cp-zookeeper:7.8.0
     hostname: zoo1
     container_name: zoo1
     ports:
@@ -13,7 +11,7 @@ services:
       ZOOKEEPER_SERVERS: zoo1:2888:3888
 
   kafka1:
-    image: confluentinc/cp-kafka:7.3.2
+    image: confluentinc/cp-kafka:7.8.0
     hostname: kafka1
     container_name: kafka1
     ports:
@@ -38,7 +36,7 @@ services:
       - zoo1
 
   kafka-schema-registry:
-    image: confluentinc/cp-schema-registry:7.3.2
+    image: confluentinc/cp-schema-registry:7.8.0
     hostname: kafka-schema-registry
     container_name: kafka-schema-registry
     ports:
@@ -53,7 +51,7 @@ services:
 
   
   kafka-rest-proxy:
-    image: confluentinc/cp-kafka-rest:7.3.2
+    image: confluentinc/cp-kafka-rest:7.8.0
     hostname: kafka-rest-proxy
     container_name: kafka-rest-proxy
     ports:
@@ -71,7 +69,7 @@ services:
 
   
   kafka-connect:
-    image: confluentinc/cp-kafka-connect:7.3.2
+    image: confluentinc/cp-kafka-connect:7.8.0
     hostname: kafka-connect
     container_name: kafka-connect
     ports:
@@ -113,7 +111,7 @@ services:
 
   
   ksqldb-server:
-    image: confluentinc/cp-ksqldb-server:7.3.2
+    image: confluentinc/cp-ksqldb-server:7.8.0
     hostname: ksqldb-server
     container_name: ksqldb-server
     ports:
