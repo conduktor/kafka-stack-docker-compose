@@ -1,6 +1,7 @@
 [![Actions Status](https://github.com/conduktor/kafka-stack-docker-compose/workflows/CI/badge.svg)](https://github.com/conduktor/kafka-stack-docker-compose/actions)
 
-# An open-source project by Conduktor [![Conduktor.io](https://raw.githubusercontent.com/conduktor/conduktor.io-public/refs/heads/main/logo/logo-signature.png)](https://conduktor.io/)
+![logo](https://raw.githubusercontent.com/conduktor/conduktor.io-public/refs/heads/main/logo/logo-signature.png)
+# An open-source project by [Conduktor](https://conduktor.io/)
 
 This project is sponsored by [Conduktor.io](https://www.conduktor.io/), the Enterprise Data Management 
 Platform for Streaming. 
