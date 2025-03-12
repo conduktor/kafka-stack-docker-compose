@@ -1,5 +1,4 @@
-services:  
-  
+services:
   postgresql:
     image: postgres:14
     hostname: postgresql
@@ -10,9 +9,8 @@ services:
       POSTGRES_USER: "conduktor"
       POSTGRES_PASSWORD: "some_password"
       POSTGRES_HOST_AUTH_METHOD: "scram-sha-256"
-
   conduktor-console:
-    image: conduktor/conduktor-console:1.31.2
+    image: conduktor/conduktor-console:1.32.0
     ports:
       - "8080:8080"
     volumes:
@@ -27,7 +25,6 @@ services:
       CDK_CLUSTERS_0_KAFKACONNECTS_0_URL: "http://kafka-connect:8083"
       CDK_CLUSTERS_0_KAFKACONNECTS_0_NAME: "full stack kafka connect"
       # CONSOLE_JAVA_OPTS: "-XX:UseSVE=0"
-
 volumes:
   pg_data: {}
   conduktor_data: {}
