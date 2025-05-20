@@ -25,7 +25,7 @@ services:
       CDK_CLUSTERS_0_JMXPORT: "9999"
       CDK_CLUSTERS_0_JMXHOST: "kafka1"
   kafka1:
-    image: confluentinc/cp-kafka:7.8.0
+    image: confluentinc/cp-kafka:7.9.1
     hostname: kafka1
     container_name: kafka1
     ports:
