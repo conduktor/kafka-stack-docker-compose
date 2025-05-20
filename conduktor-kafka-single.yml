@@ -1,0 +1,57 @@
+services:
+  postgresql:
+    image: postgres:14
+    hostname: postgresql
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: "conduktor-console"
+      POSTGRES_USER: "conduktor"
+      POSTGRES_PASSWORD: "some_password"
+      POSTGRES_HOST_AUTH_METHOD: "scram-sha-256"
+  conduktor-console:
+    image: conduktor/conduktor-console:1.34.0
+    ports:
+      - "8080:8080"
+    volumes:
+      - conduktor_data:/var/conduktor
+    environment:
+      CDK_DATABASE_URL: "postgresql://conduktor:some_password@postgresql:5432/conduktor-console"
+      CDK_CLUSTERS_0_ID: "default"
+      CDK_CLUSTERS_0_NAME: "My Local Kafka Cluster"
+      CDK_CLUSTERS_0_COLOR: "#0013E7"
+      CDK_CLUSTERS_0_BOOTSTRAPSERVERS: "PLAINTEXT://kafka1:19092"
+      # CONSOLE_JAVA_OPTS: "-XX:UseSVE=0"
+      CDK_CLUSTERS_0_JMXPORT: "9999"
+      CDK_CLUSTERS_0_JMXHOST: "kafka1"
+  kafka1:
+    image: confluentinc/cp-kafka:7.8.0
+    hostname: kafka1
+    container_name: kafka1
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+      - "9999:9999" # JMX Port
+      - "9099:9099"  # Internal inter-broker communication
+    environment:
+      environment:
+      CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka1:9099"
+      KAFKA_LISTENERS: INTERNAL://0.0.0.0:19092,EXTERNAL://0.0.0.0:9092,DOCKER://0.0.0.0:29092,CONTROLLER://0.0.0.0:9099
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka1:19092,EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092,DOCKER://host.docker.internal:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT,CONTROLLER:PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_JMX_PORT: 9999
+      KAFKA_JMX_HOSTNAME: ${DOCKER_HOST_IP:-127.0.0.1}
+      KAFKA_AUTHORIZER_CLASS_NAME: org.apache.kafka.metadata.authorizer.StandardAuthorizer
+      KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
+volumes:
+  pg_data: {}
+  conduktor_data: {}
