@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: "some_password"
       POSTGRES_HOST_AUTH_METHOD: "scram-sha-256"
   conduktor-console:
-    image: conduktor/conduktor-console:1.36.0
+    image: conduktor/conduktor-console:1.36.2
     ports:
       - "8080:8080"
     volumes:
