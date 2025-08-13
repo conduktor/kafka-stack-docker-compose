@@ -52,3 +52,7 @@ jobs:
 
       - name: run test full-stack 8
         run: ./test.sh full-stack.yml 8
+
+      - name: run test conduktor-kafka-single 3
+        run: ./test.sh conduktor-kafka-single.yml 3
+      
