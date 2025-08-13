@@ -55,6 +55,20 @@ docker compose -f full-stack.yml up
 docker compose -f full-stack.yml down
 ```
 
+## Single Kafka (KRaft mode) + Conduktor
+
+This configuration fits most development requirements.
+
+ - Kafka will be available at `$DOCKER_HOST_IP:9092`
+ - Conduktor will be available at : `$DOCKER_HOST_IP:8080`
+
+Run with:
+```
+docker compose -f conduktor-kafka-single.yml up
+docker compose -f conduktor-kafka-single.yml down
+```
+
+
 ## Single Zookeeper / Single Kafka
 
 This configuration fits most development requirements.
