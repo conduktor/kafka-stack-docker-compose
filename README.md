@@ -38,6 +38,9 @@ Modify the `conduktor.yml` file, uncomment the environment variable `CONSOLE_JAV
 
 ## Full stack
 
+login: `admin@admin.io`
+password: `admin`
+
 To ease you journey with Kafka just connect to [localhost:8080](http://localhost:8080/)
 
  - Conduktor-platform: `$DOCKER_HOST_IP:8080`
