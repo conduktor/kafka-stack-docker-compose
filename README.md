@@ -3,8 +3,7 @@
 ![logo](https://raw.githubusercontent.com/conduktor/conduktor.io-public/refs/heads/main/logo/logo-signature.png)
 # An open-source project by [Conduktor](https://conduktor.io/)
 
-This project is sponsored by [Conduktor.io](https://www.conduktor.io/), the Enterprise Data Management 
-Platform for Streaming. 
+This project is sponsored by [Conduktor.io](https://www.conduktor.io/), the Kafka Operations Platform for developers. 
 
 Once you have started your cluster, you can use Conduktor to easily manage it. 
 Just connect against `localhost:9092`. If you are on Mac or Windows and want to connect from another container, use `host.docker.internal:29092`
@@ -213,3 +212,9 @@ Add this environment variable
 ```
 KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE=false
 ```
+
+# Going further
+
+To learn even more, take a look at these curated lists:
+- Kafka Connect connectors: https://github.com/conduktor/awesome-kafka-connect
+- Apache Kafka resources, tools, libraries, and applications: https://github.com/conduktor/awesome-kafka
