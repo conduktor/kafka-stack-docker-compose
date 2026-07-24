@@ -32,7 +32,6 @@ services:
       - "9999:9999" # JMX Port
       - "9099:9099"  # Internal inter-broker communication
     environment:
-      environment:
       CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
