@@ -1,0 +1,263 @@
+# This docker-compose is only to get started with Conduktor.
+# It is starting Conduktor, a Redpanda cluster (3 brokers), and a fake app to generate traffic.
+
+# Go to http://localhost:8080 when started
+
+####################################################################################################
+# DO NOT USE IT IN PRODUCTION
+#
+# For production, please check: https://docs.conduktor.io/platform/category/deployment-options/
+#   to deploy on Kubernetes via Helm, or AWS using Cloudformation.
+####################################################################################################
+
+
+services:
+  # Conduktor Console, the enterprise UI.
+  # It depends on PostgreSQL and connects to our Redpanda cluster.
+  # https://docs.conduktor.io/platform/get-started/configuration/introduction/
+  conduktor-console:
+    image: conduktor/conduktor-console:1.34.0
+    ports:
+      - "8080:8080"
+    volumes:
+      - conduktor_data:/var/conduktor
+    environment:
+      CDK_DATABASE_URL: "postgresql://conduktor:change_me@postgresql:5432/conduktor-console"
+      CDK_KAFKASQL_DATABASE_URL: "postgresql://conduktor:change_me@postgresql-sql:5432/conduktor-sql"
+      CDK_ORGANIZATION_NAME: "getting-started"
+      CDK_CLUSTERS_0_ID: "local-kafka"
+      CDK_CLUSTERS_0_NAME: "local-kafka"
+      CDK_CLUSTERS_0_BOOTSTRAPSERVERS: "redpanda-1:9092,redpanda-2:9092,redpanda-3:9092"
+      CDK_CLUSTERS_0_SCHEMAREGISTRY_URL: "http://redpanda-1:8081"
+      CDK_CLUSTERS_0_COLOR: "#6A57C8"
+      CDK_CLUSTERS_0_ICON: "kafka"
+      CDK_CLUSTERS_1_ID: "cdk-gateway"
+      CDK_CLUSTERS_1_NAME: "cdk-gateway"
+      CDK_CLUSTERS_1_BOOTSTRAPSERVERS: "conduktor-gateway:6969"
+      CDK_CLUSTERS_1_SCHEMAREGISTRY_URL: "http://redpanda-1:8081"
+      CDK_CLUSTERS_1_KAFKAFLAVOR_URL: "http://conduktor-gateway:8888"
+      CDK_CLUSTERS_1_KAFKAFLAVOR_USER: "admin"
+      CDK_CLUSTERS_1_KAFKAFLAVOR_PASSWORD: "conduktor"
+      CDK_CLUSTERS_1_KAFKAFLAVOR_VIRTUALCLUSTER: "passthrough"
+      CDK_CLUSTERS_1_KAFKAFLAVOR_TYPE: "Gateway"
+      CDK_CLUSTERS_1_COLOR: "#6A57C8"
+      CDK_CLUSTERS_1_ICON: "dog"
+      CDK_MONITORING_CORTEX-URL: http://conduktor-monitoring:9009/
+      CDK_MONITORING_ALERT-MANAGER-URL: http://conduktor-monitoring:9010/
+      CDK_MONITORING_CALLBACK-URL: http://conduktor-console:8080/monitoring/api/
+      CDK_MONITORING_NOTIFICATIONS-CALLBACK-URL: http://localhost:8080
+    depends_on:
+      redpanda-1:
+        condition: service_healthy
+      redpanda-2:
+        condition: service_healthy
+      redpanda-3:
+        condition: service_healthy
+      postgresql:
+        condition: service_healthy
+      postgresql-2:
+        condition: service_healthy
+
+  # Conduktor stores its metadata in PostgreSQL.
+  # Consider using an external managed database for production usage.
+  # https://docs.conduktor.io/platform/get-started/configuration/database/
+  postgresql:
+    image: postgres:14
+    hostname: postgresql
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      PGDATA: "/var/lib/postgresql/data"
+      POSTGRES_DB: "conduktor-console"
+      POSTGRES_USER: "conduktor"
+      POSTGRES_PASSWORD: "change_me"
+      POSTGRES_HOST_AUTH_METHOD: "scram-sha-256"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Conduktor depends on a separate db for storing Kafka data for SQL querying
+  # It is optional, but required if you wish to use SQL functionality
+  # Separate db ensures continued operation of the core Console experience if the SQL db becomes unavailable
+  # https://docs.conduktor.io/platform/guides/configure-sql/
+  postgresql-2:
+    image: postgres:14
+    hostname: postgresql-sql
+    volumes:
+      - pg_data_sql:/var/lib/postgresql/data
+    environment:
+      PGDATA: "/var/lib/postgresql/data"
+      POSTGRES_DB: "conduktor-sql"
+      POSTGRES_USER: "conduktor"
+      POSTGRES_PASSWORD: "change_me"
+      POSTGRES_HOST_AUTH_METHOD: "scram-sha-256"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Conduktor uses Cortex to store Kafka and applications metrics as well as alerting.
+  # It is optional. 
+  # https://docs.conduktor.io/platform/get-started/configuration/cortex/
+  conduktor-monitoring:
+    image: conduktor/conduktor-console-cortex:1.34.0
+    environment:
+      CDK_CONSOLE-URL: "http://conduktor-console:8080"
+
+  # Redpanda broker 1 (leader)
+  redpanda-1:
+    image: docker.redpanda.com/redpandadata/redpanda:v24.1.6
+    hostname: redpanda-1
+    container_name: redpanda-1
+    command:
+      - redpanda
+      - start
+      - --kafka-addr internal://0.0.0.0:9092,external://0.0.0.0:19092
+      - --advertise-kafka-addr internal://redpanda-1:9092,external://localhost:19092
+      - --pandaproxy-addr internal://0.0.0.0:8082,external://0.0.0.0:18082
+      - --advertise-pandaproxy-addr internal://redpanda-1:8082,external://localhost:18082
+      - --schema-registry-addr internal://0.0.0.0:8081,external://0.0.0.0:18081
+      - --rpc-addr redpanda-1:33145
+      - --advertise-rpc-addr redpanda-1:33145
+      - --node-id 0
+      - --smp 1
+      - --memory 1G
+      - --mode dev-container
+      - --default-log-level=info
+    volumes:
+      - redpanda-1:/var/lib/redpanda/data
+    ports:
+      - 18081:18081
+      - 18082:18082
+      - 19092:19092
+      - 19644:9644
+    healthcheck:
+      test: ["CMD-SHELL", "rpk cluster health | grep -E 'Healthy:.+true' || exit 1"]
+      interval: 15s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+
+  # Redpanda broker 2
+  redpanda-2:
+    image: docker.redpanda.com/redpandadata/redpanda:v24.1.6
+    hostname: redpanda-2
+    container_name: redpanda-2
+    command:
+      - redpanda
+      - start
+      - --kafka-addr internal://0.0.0.0:9092,external://0.0.0.0:29092
+      - --advertise-kafka-addr internal://redpanda-2:9092,external://localhost:29092
+      - --pandaproxy-addr internal://0.0.0.0:8082,external://0.0.0.0:28082
+      - --advertise-pandaproxy-addr internal://redpanda-2:8082,external://localhost:28082
+      - --schema-registry-addr internal://0.0.0.0:8081,external://0.0.0.0:28081
+      - --rpc-addr redpanda-2:33145
+      - --advertise-rpc-addr redpanda-2:33145
+      - --seeds redpanda-1:33145
+      - --node-id 1
+      - --smp 1
+      - --memory 1G
+      - --mode dev-container
+      - --default-log-level=info
+    volumes:
+      - redpanda-2:/var/lib/redpanda/data
+    ports:
+      - 28081:28081
+      - 28082:28082
+      - 29092:29092
+      - 29644:9644
+    depends_on:
+      redpanda-1:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "rpk cluster health | grep -E 'Healthy:.+true' || exit 1"]
+      interval: 15s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+
+  # Redpanda broker 3
+  redpanda-3:
+    image: docker.redpanda.com/redpandadata/redpanda:v24.1.6
+    hostname: redpanda-3
+    container_name: redpanda-3
+    command:
+      - redpanda
+      - start
+      - --kafka-addr internal://0.0.0.0:9092,external://0.0.0.0:39092
+      - --advertise-kafka-addr internal://redpanda-3:9092,external://localhost:39092
+      - --pandaproxy-addr internal://0.0.0.0:8082,external://0.0.0.0:38082
+      - --advertise-pandaproxy-addr internal://redpanda-3:8082,external://localhost:38082
+      - --schema-registry-addr internal://0.0.0.0:8081,external://0.0.0.0:38081
+      - --rpc-addr redpanda-3:33145
+      - --advertise-rpc-addr redpanda-3:33145
+      - --seeds redpanda-1:33145
+      - --node-id 2
+      - --smp 1
+      - --memory 1G
+      - --mode dev-container
+      - --default-log-level=info
+    volumes:
+      - redpanda-3:/var/lib/redpanda/data
+    ports:
+      - 38081:38081
+      - 38082:38082
+      - 39092:39092
+      - 39644:9644
+    depends_on:
+      redpanda-1:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "rpk cluster health | grep -E 'Healthy:.+true' || exit 1"]
+      interval: 15s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+
+  # Conduktor comes with its Gateway, a Kafka proxy bringing many security and governance features.
+  # Now Gateway uses our Redpanda cluster as its backend.
+  # https://docs.conduktor.io/gateway/
+  conduktor-gateway:
+    image: conduktor/conduktor-gateway:3.9.0
+    hostname: conduktor-gateway
+    container_name: conduktor-gateway
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: redpanda-1:9092,redpanda-2:9092,redpanda-3:9092
+    ports:
+      - "8888:8888"
+    healthcheck:
+      test: curl localhost:8888/health
+      interval: 5s
+      retries: 25
+    depends_on:
+      redpanda-1:
+        condition: service_healthy
+      redpanda-2:
+        condition: service_healthy
+      redpanda-3:
+        condition: service_healthy
+
+  # As this is a get started, we want to bring some life to the cluster to demonstrate the value of Conduktor.
+  # This is totally optional and only used for this purpose. Do not use it in production.
+  conduktor-data-generator:
+    image: conduktor/conduktor-data-generator:0.9
+    container_name: conduktor-data-generator
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: conduktor-gateway:6969
+      KAFKA_SCHEMA_REGISTRY_URL: http://redpanda-1:8081
+      GATEWAY_ADMIN_API: http://conduktor-gateway:8888
+    restart: on-failure
+    depends_on:
+      conduktor-gateway:
+        condition: service_healthy
+
+volumes:
+  pg_data: {}
+  pg_data_sql: {}
+  conduktor_data: {}
+  redpanda-1: {}
+  redpanda-2: {}
+  redpanda-3: {}
